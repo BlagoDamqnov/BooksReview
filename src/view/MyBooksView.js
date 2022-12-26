@@ -1,5 +1,3 @@
-
-
 import { html } from '../../node_modules/lit-html/lit-html.js'
 import {getBookByUserId } from "../services/books.js";
 import { getUserId } from './../api/util.js';

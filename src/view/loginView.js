@@ -1,7 +1,6 @@
 import { html } from '../../node_modules/lit-html/lit-html.js'
 import { CreateSubmitHandler } from "../api/util.js";
 import { login } from "../services/user.js";
-import { getUserId } from './../api/util.js';
 
 const loginTemplate = (onSubmit) => html`
     <section id="login-page" class="login">
