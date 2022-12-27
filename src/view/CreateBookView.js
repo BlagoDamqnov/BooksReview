@@ -43,7 +43,7 @@ const CreateTemple = (onSubmit) =>html`
                                 <option value="Romance">Romance/Романтика</option>
                                 <option value="Mistery">Mistery/Мистерии</option>
                                 <option value="Classic">Clasic/Класика</option>
-                                <option value="Other">Other</option>
+                                <option value="Other">Other/Друга</option>
                             </select>
                         </span>
                     </p>

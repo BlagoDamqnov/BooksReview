@@ -1,9 +1,9 @@
 import { html, nothing } from '../../node_modules/lit-html/lit-html.js'
 import { getUserId } from '../api/util.js';
-import { getBookByBookId } from '../services/books.js';
+import { deleteBook, getBookByBookId } from '../services/books.js';
 
 
-const detailsTemplate = (data) => html`
+const detailsTemplate = (data,onDelete) => html`
  <section id="details-page" class="details">
             <div class="book-information">
                 <h3>${data[0].Title}</h3>
@@ -13,8 +13,8 @@ const detailsTemplate = (data) => html`
                 ${data.IsOwner?
                 html`
                 <div class="actions">
-                    <a class="button" href="#">Edit</a>
-                    <a class="button" href="#">Delete</a>
+                    <a class="button" href="/edit/${data[0].Id}">Edit</a>
+                    <a class="button" href="/" @click =${onDelete}>Delete</a>
                 </div>
                 `:nothing}
             </div>
@@ -33,6 +33,14 @@ export async function detailsPage(ctx){
   if(ctx.user){
     result.IsOwner = userId[0].Id ===result[0].UserId
     }
-   
-    ctx.render(detailsTemplate(result));
+    
+    ctx.render(detailsTemplate(result,onDelete));
+    async function onDelete(){
+        const choice = confirm('Are you sure!');
+
+        if(choice){
+          await deleteBook(bookId);
+          ctx.page.redirect('/');
+        }
+    }
 }

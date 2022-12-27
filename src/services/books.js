@@ -4,7 +4,9 @@ const endpoints = {
     getAllBooks:'/data/books',
     createReview:'/data/create',
     getBookByUserId:'/data/books/',
-    getBookByBookId:'/data/details/'
+    getBookByBookId:'/data/details/',
+    deleteBook:'/data/delete/',
+    editBook:'/data/edit/'
 }
 
 export async function getAllBookReviews(){
@@ -18,4 +20,10 @@ export async function getBookByUserId(id){
 }
 export async function getBookByBookId(id){
     return await api.get(endpoints.getBookByBookId+id);
+}
+export async function deleteBook(id){
+    return await api.del(endpoints.deleteBook+id);
+}
+export async function EditBook(id,title,author,review,kind,img){
+    return await api.put(endpoints.editBook+id,{title,kind,author,review,img});
 }

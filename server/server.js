@@ -86,14 +86,32 @@ app.post('/data/create',async(req,res)=>{
     const userId = await req.body.userId;
     await createReview(title,author,review,kind,img,userId);
 })
+app.put('/data/edit/:id',async(req,res)=>{
+    const title = await req.body.title;
+    const author = await req.body.author;
+    const review = await req.body.review;
+    const kind = await req.body.kind;
+    const img = await req.body.img;
+    const bookId = await req.params.id;
+    await editBookById(bookId,title,kind,author,review,img);
+})
 app.get('/data/details/:id',async (req, res)=>{
     let books = await getBookByBookId(req.params.id);
     res.status(200).send(books);
    
 })
+app.delete('/data/delete/:id',async (req, res)=>{
+    await deleteBookById(req.params.id);
+})
+async function deleteBookById(bookId) {
+    await sql.query(`DELETE FROM Books WHERE Id = ${bookId}`);
+}
 async function getBookByUserId(userId){
     let result = await sql.query `SELECT * FROM Books WHERE userId = ${userId}`;
     return result.recordset;
+}
+async function editBookById(bookId,title,kind,author,review,img){
+ await sql.query `UPDATE Books SET Title = ${title}, Kind = ${kind}, Author =${author} ,Review = ${review}, Image = ${img} WHERE Id = ${bookId}`;
 }
 async function getBookByBookId(bookId){
     let result = await sql.query `SELECT * FROM Books WHERE Id = ${bookId}`;
