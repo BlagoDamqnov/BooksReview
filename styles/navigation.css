@@ -48,7 +48,7 @@ nav.navbar ul li a {
 nav.navbar ul li a:hover,
 nav.navbar ul li:hover > a {
   background: lightsalmon;
-  color: #201E1F;
+  color: white;
   font-weight: bold;
 }
 
