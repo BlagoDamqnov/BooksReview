@@ -86,9 +86,17 @@ app.post('/data/create',async(req,res)=>{
     const userId = await req.body.userId;
     await createReview(title,author,review,kind,img,userId);
 })
-
+app.get('/data/details/:id',async (req, res)=>{
+    let books = await getBookByBookId(req.params.id);
+    res.status(200).send(books);
+   
+})
 async function getBookByUserId(userId){
     let result = await sql.query `SELECT * FROM Books WHERE userId = ${userId}`;
+    return result.recordset;
+}
+async function getBookByBookId(bookId){
+    let result = await sql.query `SELECT * FROM Books WHERE Id = ${bookId}`;
     return result.recordset;
 }
 async function createReview(title,author,review,kind,img,userId){

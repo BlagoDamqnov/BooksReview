@@ -25,6 +25,7 @@ const previewTemplate = (data) => html`
                    <a class="button" href="/details/${data.Id}">Details</a>
                </li>
 `
+
 export async function homePage(ctx){
     let result = await getAllBookReviews();
     ctx.render(homeTemplate(result));

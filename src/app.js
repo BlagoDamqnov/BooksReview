@@ -3,6 +3,7 @@ import { addRender } from './middleware/render.js';
 import { addSession } from './middleware/session.js';
 import { logout } from './services/user.js';
 import { CreatePage } from './view/createBookView.js';
+import { detailsPage } from './view/detailsView.js';
 import { homePage } from './view/homeView.js';
 import { loginPage } from './view/loginView.js';
 import { MyBookPage } from './view/myBooksView.js';
@@ -20,6 +21,7 @@ page('/logout',logoutFunc);
 page('/register',registerPage);
 page('/myBook',MyBookPage);
 page('/profile',()=>console.log('myBook'));
+page('/details/:id',detailsPage)
 
 page.start();
 
