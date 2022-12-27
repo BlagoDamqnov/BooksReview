@@ -21,7 +21,6 @@ page('/logout',logoutFunc);
 page('/myBook',MyBookPage);
 page('/details/:id',detailsPage)
 page('/edit/:id',EditPage)
-page('delete',detailsPage);
 
 page.start();
 

@@ -21,9 +21,9 @@ export async function getBookByUserId(id){
 export async function getBookByBookId(id){
     return await api.get(endpoints.getBookByBookId+id);
 }
-export async function deleteBook(id){
-    return await api.del(endpoints.deleteBook+id);
+export  function deleteBook(id){
+    return  api.del(endpoints.deleteBook+id);
 }
-export async function EditBook(id,title,author,review,kind,img){
+export async function EditBook(id,title,kind,author,review,img){
     return await api.put(endpoints.editBook+id,{title,kind,author,review,img});
 }

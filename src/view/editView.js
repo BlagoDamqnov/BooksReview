@@ -4,8 +4,8 @@ import {  EditBook, getBookByBookId } from '../services/books.js';
 
 
 const EditTemplate = (data,onSubmit) =>html`
-   <section id="edit-page" class="edit">
-            <form id="edit-form" @submit=${onSubmit}>
+   <section id="edit-page" class="edit" @submit=${onSubmit}>
+            <form id="edit-form">
                 <fieldset>
                     <legend>Edit my Book</legend>
                     <p class="field">
@@ -21,7 +21,7 @@ const EditTemplate = (data,onSubmit) =>html`
                         </span>
                     </p>
                     <p class="field">
-                        <label for="review">Description</label>
+                        <label for="review">Review</label>
                         <span class="input">
                             <textarea name="review"
                                 id="review">${data[0].Review}</textarea>
@@ -37,11 +37,14 @@ const EditTemplate = (data,onSubmit) =>html`
                         <label for="type">Kind</label>
                         <span class="input">
                             <select id="kind" name="kind" value="${data[0].Kind}">
-                                <option value="Fiction" selected>Fiction</option>
-                                <option value="Romance">Romance</option>
-                                <option value="Mistery">Mistery</option>
-                                <option value="Classic">Clasic</option>
-                                <option value="Other">Other</option>
+                            <option value="Fiction">Fiction/Фантастика</option>
+                                <option value="Sci-fiction">Sci-Fiction/Научнофантастични</option>
+                                <option value="Business">Business/Бизнес</option>
+                                <option value="History">History/Историческа</option>
+                                <option value="Romance">Romance/Романтика</option>
+                                <option value="Mistery">Mistery/Мистерии</option>
+                                <option value="Classic">Clasic/Класика</option>
+                                <option value="Other">Other/Друга</option>
                             </select>
                         </span>
                     </p>
@@ -50,6 +53,7 @@ const EditTemplate = (data,onSubmit) =>html`
             </form>
         </section>
 `
+
 async function onSubmit(ctx,data,event){
     let bookId = ctx.params.id
     if(Object.values(data).some(f=>f=='')){
@@ -68,5 +72,6 @@ async function onSubmit(ctx,data,event){
 export async function EditPage(ctx){
     const id = ctx.params.id;
     const result = await getBookByBookId(id);
+   
     ctx.render(EditTemplate(result,CreateSubmitHandler(ctx,onSubmit)))
 }

@@ -64,17 +64,17 @@ app.get('/users/logout',(req,res)=>{
 })
 
 app.get('/data/books',async (req,res) =>{
-    let books = await getBook();
-    res.status(200).send(books);
-    console.log(books);
+     let books = await getBook();
+    res.status(200).send(books)
+    
 })
 app.get('/data/books/:id',async (req,res) =>{
     let books = await getBookByUserId(req.params.id);
     res.status(200).send(books);
 })
 app.get(`/data/books/search/:key`,async(req,res) =>{
-    let books = await searchBook(req.params.key);
-    res.status(200).send(books);
+    await searchBook(req.params.key);
+    res.status(200)
 })
 
 app.post('/data/create',async(req,res)=>{

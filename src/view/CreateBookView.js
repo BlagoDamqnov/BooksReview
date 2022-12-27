@@ -37,9 +37,9 @@ const CreateTemple = (onSubmit) =>html`
                         <span class="input">
                             <select id="kind" name="kind">
                                 <option value="Fiction">Fiction/Фантастика</option>
-                                <option value="Fiction">Sci-Fiction/Научнофантастични</option>
-                                <option value="Fiction">Business/Бизнес</option>
-                                <option value="Fiction">History/Историческа</option>
+                                <option value="Sci-fiction">Sci-Fiction/Научнофантастични</option>
+                                <option value="Business">Business/Бизнес</option>
+                                <option value="History">History/Историческа</option>
                                 <option value="Romance">Romance/Романтика</option>
                                 <option value="Mistery">Mistery/Мистерии</option>
                                 <option value="Classic">Clasic/Класика</option>

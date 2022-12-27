@@ -14,7 +14,7 @@ const detailsTemplate = (data,onDelete) => html`
                 html`
                 <div class="actions">
                     <a class="button" href="/edit/${data[0].Id}">Edit</a>
-                    <a class="button" href="/" @click =${onDelete}>Delete</a>
+                    <a class="button" href="javascript:void(0)" @click =${onDelete}>Delete</a>
                 </div>
                 `:nothing}
             </div>
@@ -35,12 +35,12 @@ export async function detailsPage(ctx){
     }
     
     ctx.render(detailsTemplate(result,onDelete));
-    async function onDelete(){
+    function onDelete(){
         const choice = confirm('Are you sure!');
 
         if(choice){
-          await deleteBook(bookId);
-          ctx.page.redirect('/');
+        deleteBook(bookId);
+        ctx.page.redirect('/create');
         }
     }
 }
