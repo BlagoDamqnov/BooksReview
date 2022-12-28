@@ -4,7 +4,6 @@ const root = document.getElementById('site-content');
 const headerElement = document.getElementById('site-header');
 
 const navigationTemplate = (user) =>html`
-         <header id="site-header">
             <!-- Navigation -->
             <nav class="navbar">
                 <section class="navbar-dashboard">
@@ -28,7 +27,6 @@ const navigationTemplate = (user) =>html`
                      `}
                 </section>
             </nav>
-        </header>
 `
 function ctxRender(content){
     render(content,root)

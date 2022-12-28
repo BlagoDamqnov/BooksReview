@@ -6,7 +6,8 @@ const endpoints = {
     getBookByUserId:'/data/books/',
     getBookByBookId:'/data/details/',
     deleteBook:'/data/delete/',
-    editBook:'/data/edit/'
+    editBook:'/data/edit/',
+    createLike:'/data/book/like/'
 }
 
 export async function getAllBookReviews(){
@@ -26,4 +27,7 @@ export  function deleteBook(id){
 }
 export async function EditBook(id,title,kind,author,review,img){
     return await api.put(endpoints.editBook+id,{title,kind,author,review,img});
+}
+export  function createLike(id){
+    return  api.post(endpoints.createLike+id);
 }

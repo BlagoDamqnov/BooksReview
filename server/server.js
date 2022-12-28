@@ -11,6 +11,7 @@ app.use(express.json());
 app.use(cors());
 
 const PORT = 3030;
+app.listen(PORT,()=>console.log('Hello'));
 app.post('/users/login', async (req, res) => {
     let email = req.body.email;
     let password = req.body.password;
@@ -65,12 +66,12 @@ app.get('/users/logout',(req,res)=>{
 
 app.get('/data/books',async (req,res) =>{
      let books = await getBook();
-    res.status(200).send(books)
+    res.send(books)
     
 })
 app.get('/data/books/:id',async (req,res) =>{
     let books = await getBookByUserId(req.params.id);
-    res.status(200).send(books);
+    res.send(books);
 })
 app.get(`/data/books/search/:key`,async(req,res) =>{
     await searchBook(req.params.key);
@@ -84,8 +85,13 @@ app.post('/data/create',async(req,res)=>{
     const kind = await req.body.kind;
     const img = await req.body.img;
     const userId = await req.body.userId;
-    await createReview(title,author,review,kind,img,userId);
+    let books = await createReview(title,author,review,kind,img,userId);
+    res.status(204).send(books);
 })
+app.post('/data/book/like/:id',async(req,res) => {
+   await likeBook(req.params.id);
+   
+});
 app.put('/data/edit/:id',async(req,res)=>{
     const title = await req.body.title;
     const author = await req.body.author;
@@ -93,16 +99,19 @@ app.put('/data/edit/:id',async(req,res)=>{
     const kind = await req.body.kind;
     const img = await req.body.img;
     const bookId = await req.params.id;
-    await editBookById(bookId,title,kind,author,review,img);
+    let books = await editBookById(bookId,title,kind,author,review,img);
+    res.status(204).send(books);
 })
 app.get('/data/details/:id',async (req, res)=>{
     let books = await getBookByBookId(req.params.id);
     res.status(200).send(books);
-   
 })
 app.delete('/data/delete/:id',async (req, res)=>{
     await deleteBookById(req.params.id);
 })
+async function likeBook(bookId){
+    await sql.query(`UPDATE Books SET [Like] = [Like] + 1 WHERE Id = ${bookId}`);
+}
 async function deleteBookById(bookId) {
     await sql.query(`DELETE FROM Books WHERE Id = ${bookId}`);
 }
@@ -145,4 +154,3 @@ async function registerUser(accessToken,email, password)
     
 }
 
-app.listen(PORT,()=>console.log('Hello'));
