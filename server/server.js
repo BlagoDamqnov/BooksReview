@@ -73,9 +73,10 @@ app.get('/data/books/:id',async (req,res) =>{
     let books = await getBookByUserId(req.params.id);
     res.send(books);
 })
-app.get(`/data/books/search/:key`,async(req,res) =>{
-    await searchBook(req.params.key);
-    res.status(200)
+app.get(`/data/books/find/:title`,async(req,res) =>{
+    let result = await searchBook(req.params.title);
+    console.log(result);
+    res.send(result);
 })
 
 app.post('/data/create',async(req,res)=>{
@@ -90,7 +91,7 @@ app.post('/data/create',async(req,res)=>{
 })
 app.post('/data/book/like/:id',async(req,res) => {
    await likeBook(req.params.id);
-   
+   res.status(204);
 });
 app.put('/data/edit/:id',async(req,res)=>{
     const title = await req.body.title;
@@ -136,7 +137,7 @@ async function getUserByEmail(email){
     return result.recordset;
 }
 async function searchBook(title){
-    let result = await sql.query `SELECT * FROM dbo.Books WHERE Title = ${title}`;
+    let result = await sql.query `SELECT * FROM dbo.Books WHERE Title = N${title}`;
     return result.recordset;
 }
 async function getBook(){

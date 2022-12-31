@@ -17,7 +17,7 @@ const homeTemplate = (data) => html`
             }
        </section>
 `
-const previewTemplate = (data) => html`
+export const previewTemplate = (data) => html`
 <li class="otherBooks">
                    <h3>${data.Title}</h3>
                    <p>Type: ${data.Kind}</p>

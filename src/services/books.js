@@ -7,7 +7,8 @@ const endpoints = {
     getBookByBookId:'/data/details/',
     deleteBook:'/data/delete/',
     editBook:'/data/edit/',
-    createLike:'/data/book/like/'
+    createLike:'/data/book/like/',
+    searchBook:'/data/books/find/'
 }
 
 export async function getAllBookReviews(){
@@ -30,4 +31,7 @@ export async function EditBook(id,title,kind,author,review,img){
 }
 export  function createLike(id){
     return  api.post(endpoints.createLike+id);
+}
+export function searchBook(title){
+    return api.get(endpoints.searchBook+title)
 }

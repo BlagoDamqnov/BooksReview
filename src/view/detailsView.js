@@ -44,7 +44,7 @@ export async function detailsPage(ctx){
 
         if(choice){
         deleteBook(bookId);
-        ctx.page.redirect('/create');
+        ctx.page.redirect('/');
         }
     }
     btn.addEventListener('click', function(e){

@@ -189,7 +189,9 @@ footer p {
     text-align: center;
     color:white
 }
-
+.search{
+    color:white
+}
 textarea#description {
     height: 100px;
     resize: none;
