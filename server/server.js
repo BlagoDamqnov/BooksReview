@@ -10,6 +10,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+
 const PORT = 3030;
 app.listen(PORT,()=>console.log('Hello'));
 app.post('/users/login', async (req, res) => {
@@ -90,9 +91,13 @@ app.post('/data/create',async(req,res)=>{
     res.status(204).send(books);
 })
 app.post('/data/book/like/:id',async(req,res) => {
-   await likeBook(req.params.id);
+   await likeBook(req.params.id,req.body.userId);
    res.status(204);
 });
+app.post('/data/book/like',async(req,res) => {
+   let result = await isLiked(req.body.bookId,req.body.userId);
+   res.status(200).send(result);
+})
 app.put('/data/edit/:id',async(req,res)=>{
     const title = await req.body.title;
     const author = await req.body.author;
@@ -110,8 +115,14 @@ app.get('/data/details/:id',async (req, res)=>{
 app.delete('/data/delete/:id',async (req, res)=>{
     await deleteBookById(req.params.id);
 })
-async function likeBook(bookId){
-    await sql.query(`UPDATE Books SET [Like] = [Like] + 1 WHERE Id = ${bookId}`);
+
+async function isLiked(bookId,userId){
+    let = result =await sql.query(`SELECT * FROM Likes Where BookId = ${bookId} AND UserId = ${userId}`)
+    return result.recordset;
+}
+async function likeBook(bookId,userId){
+    await sql.query `UPDATE Books SET [Like] = [Like] + 1 WHERE Id = ${bookId}
+                     INSERT INTO dbo.Likes(BookId,UserId) VALUES (${bookId},${userId})`;
 }
 async function deleteBookById(bookId) {
     await sql.query(`DELETE FROM Books WHERE Id = ${bookId}`);
@@ -136,8 +147,8 @@ async function getUserByEmail(email){
     `SELECT Id FROM dbo.Users WHERE Email=${email}`
     return result.recordset;
 }
-async function searchBook(title){
-    let result = await sql.query `SELECT * FROM dbo.Books WHERE Title = N${title}`;
+async function searchBook(input){
+    let result = await sql.query `SELECT * FROM dbo.Books WHERE Title = ${input} OR Kind = ${input} OR Author = ${input}`;
     return result.recordset;
 }
 async function getBook(){

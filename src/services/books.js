@@ -8,7 +8,8 @@ const endpoints = {
     deleteBook:'/data/delete/',
     editBook:'/data/edit/',
     createLike:'/data/book/like/',
-    searchBook:'/data/books/find/'
+    searchBook:'/data/books/find/',
+    isLiked:'/data/book/like'
 }
 
 export async function getAllBookReviews(){
@@ -29,9 +30,12 @@ export  function deleteBook(id){
 export async function EditBook(id,title,kind,author,review,img){
     return await api.put(endpoints.editBook+id,{title,kind,author,review,img});
 }
-export  function createLike(id){
-    return  api.post(endpoints.createLike+id);
+export function createLike(id,userId){
+    return  api.post(endpoints.createLike+id,{userId});
 }
-export function searchBook(title){
-    return api.get(endpoints.searchBook+title)
+export function searchBook(input){
+    return api.get(endpoints.searchBook+input)
+}
+export function isLiked(bookId,userId){
+    return api.post(endpoints.isLiked,{bookId,userId});
 }

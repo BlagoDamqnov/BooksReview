@@ -67,7 +67,7 @@ async function onSubmit(ctx,data,event){
       data.image,
    );
    event.target.reset();
-   ctx.page.redirect('/')
+   ctx.page.redirect('/details/'+bookId)
 }
 export async function EditPage(ctx){
     const id = ctx.params.id;

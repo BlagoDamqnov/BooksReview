@@ -4,7 +4,7 @@ import {previewTemplate} from './homeView.js'
 
 const searchTemplate = (onChange,onSearch,books = []) =>html`
 <section id="searchPage" class="dashboard">
-    <h1 class='search'>Search by Name</h1>
+    <h1 class='search'>Search Books</h1>
 
     <div class="search">
         <input id="search-input" type="text" name="search" placeholder="Enter book title" @input =${onChange}>
@@ -20,12 +20,6 @@ const searchTemplate = (onChange,onSearch,books = []) =>html`
            <p class="no-books">No available books review!</p>
            `
             }
-    <!-- <h2 class='search'>Results:</h2>
-       ${books.map(previewTemplate)}
-        ${books.length ==0 ?
-        html`<p class="no-books">No result.</p>`
-        :nothing
-        } -->
     </div>
 </section>
 `;

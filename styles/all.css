@@ -190,7 +190,11 @@ footer p {
     color:white
 }
 .search{
-    color:white
+    color:white;
+    font-family: arial;
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
 }
 textarea#description {
     height: 100px;
