@@ -19,6 +19,8 @@ app.post('/users/login', async (req, res) => {
 
     const data = {email:email,password:password};
         let user = await (await UserExist(email)).recordset;
+        let username = user[0].Username;
+      
         if(user.length!==0)
         { 
           
@@ -26,7 +28,7 @@ app.post('/users/login', async (req, res) => {
             if(match){
                 const token = jwt.sign(data,'eds5f4sd5f4sdfsd4f45sd54fds4f54sd45');
                 const id = await getUserByEmail(email);
-                res.send({email,token,id});
+                res.send({email,token,id,username});
                 console.log(id);
             }else{
                 res.status(409).json({
@@ -44,6 +46,8 @@ app.post('/users/login', async (req, res) => {
 app.post('/users/register',async (req,res)=>{
     const email = req.body.email;
     const password = req.body.password;
+    const username = req.body.username;
+
     let user = (await UserExist(email)).recordset;
     const data = {email:email,password:password};
     
@@ -54,9 +58,9 @@ app.post('/users/register',async (req,res)=>{
         })
     }else{
         const token = jwt.sign(data,'eds5f4sd5f4sdfsd4f45sd54fds4f54sd45');
-        await registerUser(token,email, password)
+        await registerUser(token,email, password,username)
         const id = await getUserByEmail(email);
-        res.send({email,token,id});
+        res.send({email,token,id,username});
          console.log(id);
         }
 })
@@ -159,10 +163,10 @@ async function UserExist(email){
     let result = await sql.query`SELECT * FROM dbo.Users WHERE Email = ${email}`
     return result
 }
-async function registerUser(accessToken,email, password)
+async function registerUser(accessToken,email, password,username)
 {
     let hashedPass = await bcrypt.hash(password, 10)
-    await sql.query`INSERT INTO dbo.Users(Email,Password) VALUES(${email}, ${hashedPass})`
+    await sql.query`INSERT INTO dbo.Users(Email,Password,Username) VALUES(${email}, ${hashedPass},${username})`
     
 }
 

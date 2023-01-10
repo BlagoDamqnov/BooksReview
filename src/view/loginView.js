@@ -1,6 +1,8 @@
 import { html } from '../../node_modules/lit-html/lit-html.js'
 import { CreateSubmitHandler } from "../api/util.js";
 import { login } from "../services/user.js";
+import { notify } from './../api/notify.js';
+import { successfullyAlert } from './../api/alert.js';
 
 const loginTemplate = (onSubmit) => html`
     <section id="login-page" class="login">
@@ -20,15 +22,17 @@ const loginTemplate = (onSubmit) => html`
                         </span>
                     </p>
                     <input class="button submit" type="submit" value="Login">
+                    <a href='/register'>Register</a>
                 </fieldset>
             </form>
         </section>
 `
 async function onSubmit(ctx,data,event){
     if(data.email == '' ||data.password==''){
-        alert('All fields are required!')
+        return notify('All fields are required!')
     }
     await login(data.email,data.password);
+    successfullyAlert('Successfully login !')
     event.target.reset();
     ctx.page.redirect('/')
 }

@@ -7,7 +7,7 @@ const searchTemplate = (onChange,onSearch,books = []) =>html`
     <h1 class='search'>Search Books</h1>
 
     <div class="search">
-        <input id="search-input" type="text" name="search" placeholder="Enter book title" @input =${onChange}>
+        <input id="search-input" type="text" name="search" placeholder="Enter something" @input =${onChange}>
         <button class="button-list" @click=${onSearch}>Search</button>
     </div>
     ${books.length>0

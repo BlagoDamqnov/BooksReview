@@ -66,29 +66,6 @@ img{
     width: 300px;
     height: auto;
 }
-/* .img {
-    width: 1rem;
-    position: relative;
-    overflow: hidden;
-    padding: 0rem;
-    height: auto;
-}
-
-img {
-    display: block;
-    position: absolute;
-    left: 0;
-    right: 0;
-    width: 100%;
-    height: auto;
-    object-fit:fill;
-}
-
-.img::after {
-    display: block;
-    content: "";
-    padding-top: 100%;
-} */
 
 .detailsOtherBooks,
 .detailsMyBooks,

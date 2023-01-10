@@ -11,8 +11,8 @@ export async function login(email,password){
     const result = await api.post(endpoints.loginUrl,{email,password});
     setUserData(result);
 }
-export async function register(accessToken,email,password){
-    const result = await api.post(endpoints.registerUrl,{accessToken,email,password});
+export async function register(accessToken,email,password,username){
+    const result = await api.post(endpoints.registerUrl,{accessToken,email,password,username});
     setUserData(result);
 }
 export function logout(){

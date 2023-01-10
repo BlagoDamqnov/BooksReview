@@ -1,6 +1,8 @@
 import { html } from '../../node_modules/lit-html/lit-html.js'
 import { CreateSubmitHandler } from '../api/util.js';
 import {  EditBook, getBookByBookId } from '../services/books.js';
+import { notify } from './../api/notify.js';
+import { successfullyAlert } from './../api/alert.js';
 
 
 const EditTemplate = (data,onSubmit) =>html`
@@ -57,7 +59,7 @@ const EditTemplate = (data,onSubmit) =>html`
 async function onSubmit(ctx,data,event){
     let bookId = ctx.params.id
     if(Object.values(data).some(f=>f=='')){
-        return alert('All fields are required!')
+        return notify('All fields are required!')
     }
     await EditBook(bookId,
       data.title,
@@ -66,6 +68,7 @@ async function onSubmit(ctx,data,event){
       data.review,
       data.image,
    );
+   successfullyAlert('Edited book successfully!')
    event.target.reset();
    ctx.page.redirect('/details/'+bookId)
 }

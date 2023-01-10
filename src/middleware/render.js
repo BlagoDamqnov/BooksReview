@@ -12,7 +12,7 @@ const navigationTemplate = (user) =>html`
                     ${user
                      ?html`
                      <div id="user">
-                         <span>Welcome, ${user.email}</span>
+                         <span>Welcome, ${user.username}</span>
                          <a class="button" href="/myBook">My Books</a>
                          <a class="button" href="/search">Search</a>
                          <a class="button" href="/create">Add Book</a>

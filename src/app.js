@@ -10,6 +10,8 @@ import { loginPage } from './view/loginView.js';
 import { MyBookPage } from './view/myBooksView.js';
 import { registerPage } from './view/registerView.js';
 import { searchPage } from './view/serachView.js';
+import { successfullyAlert } from './api/alert.js';
+
 
 page(addSession);
 page(addRender);
@@ -27,6 +29,8 @@ page('/search',searchPage)
 page.start();
 
 function logoutFunc(ctx){
+    alert('Are you sure to Logout?')
     logout();
+    successfullyAlert('Successfully logged out!')
     ctx.page.redirect('/login')
 }

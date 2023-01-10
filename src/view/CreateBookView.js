@@ -1,6 +1,8 @@
 import { html } from '../../node_modules/lit-html/lit-html.js'
 import { CreateSubmitHandler, getUserId } from '../api/util.js';
 import { Create } from '../services/books.js';
+import { notify } from './../api/notify.js';
+import { successfullyAlert } from './../api/alert.js';
 
 
 const CreateTemple = (onSubmit) =>html`
@@ -54,12 +56,13 @@ const CreateTemple = (onSubmit) =>html`
 `
 async function onSubmit(ctx,data,event){
     if(data.title == '' || data.review == '' || data.author == '' || data.kind == ''||data.img=='') {
-        return alert('All fields are required!')
+        return notify('All fields are required!')
     }
     const userId = await getUserId();
     event.target.reset();
     ctx.page.redirect('/')
     await Create(data.title,data.author,data.review,data.kind,data.img,userId[0].Id);
+    successfullyAlert('Created book successfully!')
 }
 export function CreatePage(ctx){
     ctx.render(CreateTemple(CreateSubmitHandler(ctx,onSubmit)));

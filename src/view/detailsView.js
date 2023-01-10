@@ -2,6 +2,7 @@ import { html, nothing } from '../../node_modules/lit-html/lit-html.js'
 import { getUserId } from '../api/util.js';
 import { createLike, deleteBook, getBookByBookId } from '../services/books.js';
 import { isLiked } from './../services/books.js';
+import { successfullyAlert } from './../api/alert.js';
 
 
 const detailsTemplate = (data,onDelete) => html`
@@ -74,8 +75,12 @@ export async function detailsPage(ctx){
 
         if(choice){
         deleteBook(bookId);
+        successfullyAlert('Successfully deleted!')
         ctx.page.redirect('/');
         }
+    }
+    if(localStorage.length==0){
+        ctx.page.redirect('/login')
     }
     let isLike  = await isLiked(bookId,userId[0].Id);
     console.log(isLike);
