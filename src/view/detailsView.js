@@ -21,7 +21,7 @@ const detailsTemplate = (data,onDelete) => html`
                 </div>
                 `:
                 localStorage.length>0
-                ?html`<a class="button" href="/details/${data[0].Id}" id = "likeBtn">LIKE</a>
+                ?html`<a class="button" id = "likeBtn">LIKE</a>
                         <label>LIKE:${data[0].Like}</label>
                         `
                       :nothing}
@@ -29,7 +29,7 @@ const detailsTemplate = (data,onDelete) => html`
             <div class="book-description">
                 <h3>Description:</h3>
                 <p>${data[0].Review}</p>
-                
+                <span>Created on: <label id="data"></label></span>
             </div>
         </section>
 
@@ -57,7 +57,7 @@ const detailsTemplateSecond = (data,onDelete) => html`
             <div class="book-description">
                 <h3>Description:</h3>
                 <p>${data[0].Review}</p>
-                
+                <span>Created on: <label id="data"></label></span>
             </div>
         </section>
 
@@ -69,7 +69,7 @@ export async function detailsPage(ctx){
   if(ctx.user){
     result.IsOwner = userId[0].Id ===result[0].UserId
     }
-   
+   let dataCreated = (result[0].DataCreated.split('T')[0]);
     function onDelete(){
         const choice = confirm('Are you sure!');
 
@@ -83,11 +83,12 @@ export async function detailsPage(ctx){
         ctx.page.redirect('/login')
     }
     let isLike  = await isLiked(bookId,userId[0].Id);
-    console.log(isLike);
     if(isLike.length>0){
         ctx.render(detailsTemplateSecond(result,onDelete));
+        document.getElementById('data').textContent= dataCreated;
     }else{
         ctx.render(detailsTemplate(result,onDelete));
+        document.getElementById('data').textContent= dataCreated;
          document.getElementById('likeBtn').addEventListener('click', function(e){
             const element = e.target;
               createLike(bookId,userId[0].Id);

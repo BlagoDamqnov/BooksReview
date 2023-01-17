@@ -18,11 +18,11 @@ const homeTemplate = (data) => html`
        </section>
 `
 export const previewTemplate = (data) => html`
-<li class="otherBooks">
+              <li class="otherBooks">
                    <h3>${data.Title}</h3>
                    <p>Type: ${data.Kind}</p>
                    <img src="${data.Image}"></p>
-                   <a class="button" href="/details/${data.Id}">Details</a>
+                   <a class="button" href="/data/details/${data.Id}">Details</a>
                </li>
 `
 

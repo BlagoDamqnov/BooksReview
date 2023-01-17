@@ -22,7 +22,7 @@ page('/login',loginPage);
 page('/register',registerPage);
 page('/logout',logoutFunc);
 page('/myBook',MyBookPage);
-page('/details/:id',detailsPage)
+page('/data/details/:id',detailsPage)
 page('/edit/:id',EditPage)
 page('/search',searchPage)
 

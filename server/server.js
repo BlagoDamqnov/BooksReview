@@ -169,4 +169,3 @@ async function registerUser(accessToken,email, password,username)
     await sql.query`INSERT INTO dbo.Users(Email,Password,Username) VALUES(${email}, ${hashedPass},${username})`
     
 }
-

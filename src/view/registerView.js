@@ -48,7 +48,7 @@ async function onSubmit(ctx,data,event){
     if(data.password!==data['confirm-pass']){
         return notify('Password do not match!')
     }
-    console.log(data.username);
+    
     const token = getAccessToken();
     await register(token,data.email,data.password,data.username);
     successfullyAlert('Successfully registered!')
