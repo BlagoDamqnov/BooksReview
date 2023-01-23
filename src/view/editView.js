@@ -69,7 +69,7 @@ async function onSubmit(ctx,data,event){
       data.image,
    );
    event.target.reset();
-   ctx.page.redirect('/data/details/'+bookId)
+   ctx.page.redirect('/details/'+bookId)
    successfullyAlert('Edited book successfully!')
 }
 export async function EditPage(ctx){

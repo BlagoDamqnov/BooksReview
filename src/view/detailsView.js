@@ -66,10 +66,10 @@ export async function detailsPage(ctx){
   let bookId = ctx.params.id
   let userId = await getUserId();
   const result = await getBookByBookId(bookId);
+  console.log(result);
   if(ctx.user){
     result.IsOwner = userId[0].Id ===result[0].UserId
     }
-   let dataCreated = (result[0].DataCreated.split('T')[0]);
     function onDelete(){
         const choice = confirm('Are you sure!');
 
@@ -92,7 +92,8 @@ export async function detailsPage(ctx){
             const element = e.target;
             createLike(bookId,userId[0].Id);
              element.style.visibility = 'hidden';
-             ctx.page.redirect('/data/details/'+bookId)
+             e.
+             ctx.page.redirect('/details/'+bookId)
         })
     }
 }
