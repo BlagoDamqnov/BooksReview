@@ -68,7 +68,6 @@ const detailsTemplateSecond = (data,onDelete,user) => html`
 export async function detailsPage(ctx){
   let bookId = ctx.params.id
   let userId = await getUserId();
-  
   const result = await getBookByBookId(bookId);
   let user = await userInfo(result[0].UserId);
   if(ctx.user){
@@ -89,10 +88,11 @@ export async function detailsPage(ctx){
     let isLike  = await isLiked(bookId,userId[0].Id);
     if(isLike.length>0){
         ctx.render(detailsTemplateSecond(result,onDelete,user));
+        console.log(result);
     }else{
         ctx.render(detailsTemplate(result,onDelete,user));
-        console.log(user);
-       
+        
+        console.log(result);
         document.getElementById('likeBtn').addEventListener('click', function(e){
             const element = e.target;
             createLike(bookId,userId[0].Id);

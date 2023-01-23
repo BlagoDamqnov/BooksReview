@@ -68,7 +68,7 @@ app.post('/users/register',async (req,res)=>{
         const token = jwt.sign(data,'eds5f4sd5f4sdfsd4f45sd54fds4f54sd45');
         await registerUser(token,email, password,username,img)
         const id = await getUserByEmail(email);
-        res.send({email,token,id,img});
+        res.send({email,token,id,username,img});
          console.log(id);
          console.log(img);
         }

@@ -35,7 +35,9 @@ body {
 .create form, .edit form {
     margin: 5rem auto;
 }
-
+.updateProfile{
+    color:white
+}
 .userImage{
     width: 40px;
     height: 40px;

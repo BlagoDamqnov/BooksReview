@@ -12,9 +12,10 @@ const navigationTemplate = (user) =>html`
                     <!-- Logged-in users -->
                     ${user
                      ?html`
-                     
                      <div id="user">
-                            <span id="welcome">Welcome, ${user.username}</span>
+                        <a class="button" href="/settings"><img class= "userImage" src="${user.img}"></a>
+                        <span id="welcome">Welcome, ${user.username}</span>
+                        <a class="button" href="/myBook">My Books</a>
                          <a class="button" href="/myBook">My Books</a>
                          <a class="button" href="/search">Search</a>
                          <a class="button" href="/create">Add Book</a>
@@ -33,7 +34,6 @@ const navigationTemplate = (user) =>html`
 function ctxRender(content){
     render(content,root)
 }
-
 export function addRender(ctx,next){
     render(navigationTemplate(ctx.user),headerElement)
     ctx.render =ctxRender;
