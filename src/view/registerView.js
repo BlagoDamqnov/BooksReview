@@ -34,6 +34,12 @@ const registerTemplate = (onSubmit) => html`
                             <input type="password" name="confirm-pass" id="repeat-pass" placeholder="Repeat Password">
                         </span>
                     </p>
+                    <p class="field">
+                        <label for="img">Image</label>
+                        <span class="input">
+                            <textarea name="img" id="img" placeholder="Image"></textarea>
+                        </span>
+                    </p>
                     <input class="button submit" type="submit" value="Register">
                     <a href='/login'>Login now</a>
                 </fieldset>
@@ -50,7 +56,7 @@ async function onSubmit(ctx,data,event){
     }
     
     const token = getAccessToken();
-    await register(token,data.email,data.password,data.username);
+    await register(token,data.email,data.password,data.username,data.img);
     successfullyAlert('Successfully registered!')
     event.target.reset();
     ctx.page.redirect('/');

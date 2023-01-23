@@ -36,6 +36,14 @@ body {
     margin: 5rem auto;
 }
 
+.userImage{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid;
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
 .button {
     display: inline-block;
     padding: 0.3rem 1rem;

@@ -3,6 +3,7 @@ import {html,render} from '../../../node_modules/lit-html/lit-html.js'
 const root = document.getElementById('site-content');
 const headerElement = document.getElementById('site-header');
 
+
 const navigationTemplate = (user) =>html`
             <!-- Navigation -->
             <nav class="navbar">
@@ -11,8 +12,9 @@ const navigationTemplate = (user) =>html`
                     <!-- Logged-in users -->
                     ${user
                      ?html`
+                     
                      <div id="user">
-                         <span>Welcome, ${user.username}</span>
+                            <span id="welcome">Welcome, ${user.username}</span>
                          <a class="button" href="/myBook">My Books</a>
                          <a class="button" href="/search">Search</a>
                          <a class="button" href="/create">Add Book</a>

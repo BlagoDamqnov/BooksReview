@@ -1,5 +1,5 @@
 let sql = require('mssql')
-
+const bcrypt = require('bcrypt');
 async function isLiked(bookId,userId){
     let result =await sql.query(`SELECT * FROM Likes Where BookId = ${bookId} AND UserId = ${userId}`)
     return result.recordset;
@@ -15,8 +15,10 @@ async function getBookByUserId(userId){
     let result = await sql.query `SELECT * FROM Books WHERE userId = ${userId}`;
     return result.recordset;
 }
-
-
+async function getUserById(userId){
+    let result = await sql.query `SELECT * FROM Users WHERE Id = ${userId}`;
+    return result.recordset;
+}
 async function editBookById(bookId,title,kind,author,review,img){
  await sql.query `UPDATE Books SET Title = ${title}, Kind = ${kind}, Author =${author} ,Review = ${review}, Image = ${img} WHERE Id = ${bookId}`;
 }
@@ -45,10 +47,10 @@ async function UserExist(email){
     let result = await sql.query`SELECT * FROM dbo.Users WHERE Email = ${email}`
     return result
 }
-async function registerUser(accessToken,email, password,username)
+async function registerUser(accessToken,email, password,username,img)
 {
     let hashedPass = await bcrypt.hash(password, 10)
-    await sql.query`INSERT INTO dbo.Users(Email,Password,Username) VALUES(${email}, ${hashedPass},${username})`
+    await sql.query`INSERT INTO dbo.Users(Email,Password,Username,Image) VALUES(${email}, ${hashedPass},${username},${img})`
 }
 
 module.exports = {
@@ -64,4 +66,5 @@ module.exports = {
     ,getBook
     ,UserExist
     ,registerUser
+    ,getUserById
 }

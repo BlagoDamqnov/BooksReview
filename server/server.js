@@ -3,7 +3,7 @@ const cors = require('cors');
 const jwt = require("jsonwebtoken");
 const bcrypt = require('bcrypt');
 let mssql_configuration = require('../server/SQL/config.js');
-const { isLiked,likeBook,deleteBookById,getBookByUserId,editBookById,getBookByBookId,createReview,getUserByEmail,searchBook,getBook,UserExist,registerUser } = require('./Queries.js');
+const { isLiked,likeBook,deleteBookById,getBookByUserId,editBookById,getBookByBookId,createReview,getUserByEmail,searchBook,getBook,UserExist,registerUser, getUserById } = require('./Queries.js');
 
 
 const app = express();
@@ -22,7 +22,7 @@ app.post('/users/login', async (req, res) => {
 
     try {
         let username = user[0].Username;
-      
+        let img = user[0].Image;
         if(user.length!==0)
         { 
           
@@ -30,7 +30,7 @@ app.post('/users/login', async (req, res) => {
             if(match){
                 const token = jwt.sign(data,'eds5f4sd5f4sdfsd4f45sd54fds4f54sd45');
                 const id = await getUserByEmail(email);
-                res.send({email,token,id,username});
+                res.send({email,token,id,username,img});
                 console.log(id);
             }else{
                 res.status(409).json({
@@ -52,10 +52,10 @@ app.post('/users/login', async (req, res) => {
 })
 
 app.post('/users/register',async (req,res)=>{
-    const email = req.body.email;
-    const password = req.body.password;
-    const username = req.body.username;
-
+    const email = await req.body.email;
+    const password = await req.body.password;
+    const username = await req.body.username;
+    const img = await req.body.img;
     let user = (await UserExist(email)).recordset;
     const data = {email:email,password:password};
     
@@ -66,10 +66,11 @@ app.post('/users/register',async (req,res)=>{
         })
     }else{
         const token = jwt.sign(data,'eds5f4sd5f4sdfsd4f45sd54fds4f54sd45');
-        await registerUser(token,email, password,username)
-        const id = await getUserData(email);
-        res.send({email,token,id,username});
+        await registerUser(token,email, password,username,img)
+        const id = await getUserByEmail(email);
+        res.send({email,token,id,img});
          console.log(id);
+         console.log(img);
         }
 })
 
@@ -126,4 +127,8 @@ app.get('/data/details/:id',async (req, res)=>{
 })
 app.delete('/data/delete/:id',async (req, res)=>{
     await deleteBookById(req.params.id);
+})
+app.get('/data/users/:id',async (req, res)=>{
+    let result = await getUserById(req.params.id);
+    res.status(200).send(result);
 })
