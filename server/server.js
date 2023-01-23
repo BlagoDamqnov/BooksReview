@@ -1,9 +1,9 @@
 const express = require('express');
 const cors = require('cors');
 const jwt = require("jsonwebtoken");
-let sql = require('mssql')
 const bcrypt = require('bcrypt');
 let mssql_configuration = require('../server/SQL/config.js');
+const { isLiked,likeBook,deleteBookById,getBookByUserId,editBookById,getBookByBookId,createReview,getUserByEmail,searchBook,getBook,UserExist,registerUser } = require('./Queries.js');
 
 
 const app = express();
@@ -19,6 +19,8 @@ app.post('/users/login', async (req, res) => {
 
     const data = {email:email,password:password};
         let user = await (await UserExist(email)).recordset;
+
+    try {
         let username = user[0].Username;
       
         if(user.length!==0)
@@ -40,6 +42,12 @@ app.post('/users/login', async (req, res) => {
         {
             res.status(404).json({message:'This user does not exist.'})
         }
+    } catch (error) {
+        res.status(409).json({
+            message:'User not found'
+        })
+    }
+        
         
 })
 
@@ -59,7 +67,7 @@ app.post('/users/register',async (req,res)=>{
     }else{
         const token = jwt.sign(data,'eds5f4sd5f4sdfsd4f45sd54fds4f54sd45');
         await registerUser(token,email, password,username)
-        const id = await getUserByEmail(email);
+        const id = await getUserData(email);
         res.send({email,token,id,username});
          console.log(id);
         }
@@ -91,7 +99,7 @@ app.post('/data/create',async(req,res)=>{
     const kind = await req.body.kind;
     const img = await req.body.img;
     const userId = await req.body.userId;
-    let books = await createReview(title,author,review,kind,img,userId);
+    let books = await createReview (title,author,review,kind,img,userId);
     res.status(204).send(books);
 })
 app.post('/data/book/like/:id',async(req,res) => {
@@ -119,53 +127,3 @@ app.get('/data/details/:id',async (req, res)=>{
 app.delete('/data/delete/:id',async (req, res)=>{
     await deleteBookById(req.params.id);
 })
-
-async function isLiked(bookId,userId){
-    let = result =await sql.query(`SELECT * FROM Likes Where BookId = ${bookId} AND UserId = ${userId}`)
-    return result.recordset;
-}
-async function likeBook(bookId,userId){
-    await sql.query `UPDATE Books SET [Like] = [Like] + 1 WHERE Id = ${bookId}
-                     INSERT INTO dbo.Likes(BookId,UserId) VALUES (${bookId},${userId})`;
-}
-async function deleteBookById(bookId) {
-    await sql.query(`DELETE FROM Books WHERE Id = ${bookId}`);
-}
-async function getBookByUserId(userId){
-    let result = await sql.query `SELECT * FROM Books WHERE userId = ${userId}`;
-    return result.recordset;
-}
-async function editBookById(bookId,title,kind,author,review,img){
- await sql.query `UPDATE Books SET Title = ${title}, Kind = ${kind}, Author =${author} ,Review = ${review}, Image = ${img} WHERE Id = ${bookId}`;
-}
-async function getBookByBookId(bookId){
-    let result = await sql.query `SELECT * FROM Books WHERE Id = ${bookId}`;
-    return result.recordset;
-}
-async function createReview(title,author,review,kind,img,userId){
-    let result = await sql.query `
-    INSERT INTO dbo.Books(Title,Kind,Author,Review,Image,UserId) VALUES (${title},${kind},${author},${review},${img},${userId})`;
-}
-async function getUserByEmail(email){
-    let result = await sql.query
-    `SELECT Id FROM dbo.Users WHERE Email=${email}`
-    return result.recordset;
-}
-async function searchBook(input){
-    let result = await sql.query `SELECT * FROM dbo.Books WHERE Title = ${input} OR Kind = ${input} OR Author = ${input}`;
-    return result.recordset;
-}
-async function getBook(){
-    let result = await sql.query `SELECT * FROM dbo.Books`
-    return result.recordset;
-}
-async function UserExist(email){
-    let result = await sql.query`SELECT * FROM dbo.Users WHERE Email = ${email}`
-    return result
-}
-async function registerUser(accessToken,email, password,username)
-{
-    let hashedPass = await bcrypt.hash(password, 10)
-    await sql.query`INSERT INTO dbo.Users(Email,Password,Username) VALUES(${email}, ${hashedPass},${username})`
-    
-}

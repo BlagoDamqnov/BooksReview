@@ -68,9 +68,9 @@ async function onSubmit(ctx,data,event){
       data.review,
       data.image,
    );
-   successfullyAlert('Edited book successfully!')
    event.target.reset();
-   ctx.page.redirect('/details/'+bookId)
+   ctx.page.redirect('/data/details/'+bookId)
+   successfullyAlert('Edited book successfully!')
 }
 export async function EditPage(ctx){
     const id = ctx.params.id;

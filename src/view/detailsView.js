@@ -29,7 +29,7 @@ const detailsTemplate = (data,onDelete) => html`
             <div class="book-description">
                 <h3>Description:</h3>
                 <p>${data[0].Review}</p>
-                <span>Created on: <label id="data"></label></span>
+                <span>Created on: <label id="data">${(data[0].DataCreated).split('T')[0]}</label></span>
             </div>
         </section>
 
@@ -57,7 +57,7 @@ const detailsTemplateSecond = (data,onDelete) => html`
             <div class="book-description">
                 <h3>Description:</h3>
                 <p>${data[0].Review}</p>
-                <span>Created on: <label id="data"></label></span>
+                <span>Created on: <label id="data">$${(data[0].DataCreated).split('T')[0]}</label></span>
             </div>
         </section>
 
@@ -85,14 +85,14 @@ export async function detailsPage(ctx){
     let isLike  = await isLiked(bookId,userId[0].Id);
     if(isLike.length>0){
         ctx.render(detailsTemplateSecond(result,onDelete));
-        document.getElementById('data').textContent= dataCreated;
     }else{
         ctx.render(detailsTemplate(result,onDelete));
-        document.getElementById('data').textContent= dataCreated;
-         document.getElementById('likeBtn').addEventListener('click', function(e){
+        console.log(result);
+        document.getElementById('likeBtn').addEventListener('click', function(e){
             const element = e.target;
-              createLike(bookId,userId[0].Id);
-              element.style.visibility = 'hidden';
-         })
+            createLike(bookId,userId[0].Id);
+             element.style.visibility = 'hidden';
+             ctx.page.redirect('/data/details/'+bookId)
+        })
     }
 }

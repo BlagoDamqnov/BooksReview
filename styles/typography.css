@@ -20,7 +20,7 @@ html {
 	 }
 }
 
-body, table, th, td, form, input, textarea, option, select {
+/* body, table, th, td, form, input, textarea, option, select {
 	font: inherit;
 }
 
@@ -53,4 +53,4 @@ blockquote {
 	font-style: italic;	
 	padding: 1rem 2rem;
 	position: relative;
-}
+} */

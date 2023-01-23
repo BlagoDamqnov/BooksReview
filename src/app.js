@@ -29,8 +29,10 @@ page('/search',searchPage)
 page.start();
 
 function logoutFunc(ctx){
-    alert('Are you sure to Logout?')
-    logout();
-    successfullyAlert('Successfully logged out!')
-    ctx.page.redirect('/login')
+    const choice = confirm('Are you sure to Logout?');
+    if(choice){
+        logout();
+        successfullyAlert('Successfully logged out!')
+        ctx.page.redirect('/login')
+    }
 }
