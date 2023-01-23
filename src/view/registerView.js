@@ -37,7 +37,7 @@ const registerTemplate = (onSubmit) => html`
                     <p class="field">
                         <label for="img">Image</label>
                         <span class="input">
-                            <textarea name="img" id="img" placeholder="Image"></textarea>
+                            <input type="input" name="img" id="img" placeholder="Image">
                         </span>
                     </p>
                     <input class="button submit" type="submit" value="Register">
