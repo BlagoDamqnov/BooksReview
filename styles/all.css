@@ -73,7 +73,7 @@ label{
     color: red;
 }
 img{
-    width: 300px;
+    width: 150px;
     height: auto;
 }
 
@@ -159,7 +159,7 @@ div.actions a {
 footer {
     margin-top: auto;
     text-align: center;
-    background: #50B2C0;
+    background: #F28627;
 }
 
 footer p {

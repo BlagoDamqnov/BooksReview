@@ -40,7 +40,7 @@ async function searchBook(input){
     return result.recordset;
 }
 async function getBook(){
-    let result = await sql.query `SELECT TOP(5) * FROM Books ORDER BY [Like] DESC`
+    let result = await sql.query `SELECT TOP(3) * FROM Books ORDER BY [Like] DESC`
     return result.recordset;
 }
 async function UserExist(email){
@@ -52,7 +52,9 @@ async function registerUser(accessToken,email, password,username,img)
     let hashedPass = await bcrypt.hash(password, 10)
     await sql.query`INSERT INTO dbo.Users(Email,Password,Username,Image) VALUES(${email}, ${hashedPass},${username},${img})`
 }
-
+async function updateUsername(userId,username){
+    await sql.query`UPDATE dbo.Users SET Username = ${username} WHERE Id=${userId}`
+}
 module.exports = {
     isLiked
     ,likeBook
@@ -67,4 +69,5 @@ module.exports = {
     ,UserExist
     ,registerUser
     ,getUserById
+    ,updateUsername
 }

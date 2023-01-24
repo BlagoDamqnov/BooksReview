@@ -3,7 +3,7 @@ const cors = require('cors');
 const jwt = require("jsonwebtoken");
 const bcrypt = require('bcrypt');
 let mssql_configuration = require('../server/SQL/config.js');
-const { isLiked,likeBook,deleteBookById,getBookByUserId,editBookById,getBookByBookId,createReview,getUserByEmail,searchBook,getBook,UserExist,registerUser, getUserById } = require('./Queries.js');
+const { isLiked,likeBook,deleteBookById,getBookByUserId,editBookById,getBookByBookId,createReview,getUserByEmail,searchBook,getBook,UserExist,registerUser, getUserById, updateUsername } = require('./Queries.js');
 
 
 const app = express();
@@ -132,3 +132,9 @@ app.get('/data/users/:id',async (req, res)=>{
     let result = await getUserById(req.params.id);
     res.status(200).send(result);
 })
+app.put('/data/update/username/:id',async (req, res)=>{
+const userId = await req.params.id;
+const username = await req.body.username;
+
+await updateUsername(userId,username);
+});

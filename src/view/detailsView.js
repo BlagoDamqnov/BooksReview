@@ -13,7 +13,7 @@ const detailsTemplate = (data,onDelete,user) => html`
                 <h3>${data[0].Author}</h3>
                 <p class="type">Type: ${data[0].Kind}</p>
                 <p class="img"><img src="${data[0].Image}"></p>
-                <p>Creator:${user[0].Username}<img class = "userImage" src="${user[0].Image}"></p>
+                <img class = "userImage" src="${user[0].Image}"><p>Creator:${user[0].Username}</p><img/>
                 ${data.IsOwner?
                 html`
                 <div class="actions">
@@ -43,7 +43,7 @@ const detailsTemplateSecond = (data,onDelete,user) => html`
                 <h3>${data[0].Author}</h3>
                 <p class="type">Type: ${data[0].Kind}</p>
                 <p class="img"><img src="${data[0].Image}"></p>
-                <p>Creator:${user[0].Username}<img class = "userImage" src="${user[0].Image}"></p>
+                <img class = "userImage" src="${user[0].Image}"><p>Creator:${user[0].Username}</p><img/>
                 ${data.IsOwner?
                 html`
                 <div class="actions">
