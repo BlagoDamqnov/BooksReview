@@ -55,6 +55,23 @@ async function registerUser(accessToken,email, password,username,img)
 async function updateUsername(userId,username){
     await sql.query`UPDATE dbo.Users SET Username = ${username} WHERE Id=${userId}`
 }
+async function deleteProfile(userId){
+    await sql.query`
+    BEGIN TRANSACTION
+    DELETE
+    FROM  dbo.Likes
+    WHERE  UserId = ${userId}
+
+    DELETE
+    FROM  dbo.Books
+    WHERE  UserId = ${userId}
+
+    DELETE
+    FROM  dbo.Users
+    WHERE  Id = ${userId}
+    COMMIT;
+    `
+}
 module.exports = {
     isLiked
     ,likeBook
@@ -70,4 +87,5 @@ module.exports = {
     ,registerUser
     ,getUserById
     ,updateUsername
+    ,deleteProfile
 }

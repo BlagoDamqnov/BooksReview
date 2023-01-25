@@ -3,7 +3,7 @@ const cors = require('cors');
 const jwt = require("jsonwebtoken");
 const bcrypt = require('bcrypt');
 let mssql_configuration = require('../server/SQL/config.js');
-const { isLiked,likeBook,deleteBookById,getBookByUserId,editBookById,getBookByBookId,createReview,getUserByEmail,searchBook,getBook,UserExist,registerUser, getUserById, updateUsername } = require('./Queries.js');
+const { isLiked,likeBook,deleteBookById,getBookByUserId,editBookById,getBookByBookId,createReview,getUserByEmail,searchBook,getBook,UserExist,registerUser, getUserById, updateUsername, deleteProfile} = require('./Queries.js');
 
 
 const app = express();
@@ -13,6 +13,7 @@ app.use(cors());
 
 const PORT = 3030;
 app.listen(PORT,()=>console.log('Hello'));
+
 app.post('/users/login', async (req, res) => {
     let email = req.body.email;
     let password = req.body.password;
@@ -83,10 +84,12 @@ app.get('/data/books',async (req,res) =>{
     res.send(books)
     
 })
+
 app.get('/data/books/:id',async (req,res) =>{
     let books = await getBookByUserId(req.params.id);
     res.send(books);
 })
+
 app.get(`/data/books/find/:title`,async(req,res) =>{
     let result = await searchBook(req.params.title);
     console.log(result);
@@ -103,14 +106,17 @@ app.post('/data/create',async(req,res)=>{
     let books = await createReview (title,author,review,kind,img,userId);
     res.status(204).send(books);
 })
+
 app.post('/data/book/like/:id',async(req,res) => {
    await likeBook(req.params.id,req.body.userId);
    res.status(204);
 });
+
 app.post('/data/book/like',async(req,res) => {
    let result = await isLiked(req.body.bookId,req.body.userId);
    res.status(200).send(result);
 })
+
 app.put('/data/edit/:id',async(req,res)=>{
     const title = await req.body.title;
     const author = await req.body.author;
@@ -121,20 +127,30 @@ app.put('/data/edit/:id',async(req,res)=>{
     let books = await editBookById(bookId,title,kind,author,review,img);
     res.status(204).send(books);
 })
+
 app.get('/data/details/:id',async (req, res)=>{
     let books = await getBookByBookId(req.params.id);
     res.status(200).send(books);
 })
+
 app.delete('/data/delete/:id',async (req, res)=>{
     await deleteBookById(req.params.id);
 })
+
 app.get('/data/users/:id',async (req, res)=>{
     let result = await getUserById(req.params.id);
     res.status(200).send(result);
 })
+
 app.put('/data/update/username/:id',async (req, res)=>{
 const userId = await req.params.id;
 const username = await req.body.username;
 
 await updateUsername(userId,username);
+})
+
+app.delete('/data/users/delete/:id',async (req, res)=>{
+    const userId = await req.params.id;
+    await deleteProfile(userId);
+    res.status(200).send({message: 'User deleted successfully'})
 });
