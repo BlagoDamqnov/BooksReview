@@ -6,54 +6,36 @@ import { successfullyAlert } from './../api/alert.js';
 
 
 const EditTemplate = (data,onSubmit) =>html`
-   <section id="edit-page" class="edit" @submit=${onSubmit}>
-            <form id="edit-form">
-                <fieldset>
-                    <legend>Edit my Book</legend>
-                    <p class="field">
-                        <label for="title">Title</label>
-                        <span class="input">
-                            <input type="text" name="title" id="title" value="${data[0].Title}">
-                        </span>
-                    </p>
-                    <p class="field">
-                        <label for="author">Author</label>
-                        <span class="input">
-                            <input type="text" name="author" id="author" value="${data[0].Author}">
-                        </span>
-                    </p>
-                    <p class="field">
-                        <label for="review">Review</label>
-                        <span class="input">
-                            <textarea name="review"
-                                id="review">${data[0].Review}</textarea>
-                        </span>
-                    </p>
-                    <p class="field">
-                        <label for="image">Image</label>
-                        <span class="input">
-                            <input type="text" name="image" id="image" value="${data[0].Image}">
-                        </span>
-                    </p>
-                    <p class="field">
-                        <label for="type">Kind</label>
-                        <span class="input">
-                            <select id="kind" name="kind" value="${data[0].Kind}">
-                            <option value="Fiction">Fiction/Фантастика</option>
+   <form  @submit=${onSubmit} class="register-form">
+<h3>Edit Review</h3>
+  <div class="form-group">
+    <input type="text" class="form-control" id="title" name="title" placeholder="Enter Title" value=${data[0].Title}>
+  </div>
+  <div class="form-group">
+    <input type="text" class="form-control" id="author" name="author" placeholder="Enter Author" value=${data[0].Author}>
+  </div>
+  <div class="form-group">
+    <input type="text" class="form-control" id="review" name="review" placeholder="Enter Review" value=${data[0].Review}>
+  </div>
+  <div class="form-group">
+    <input type="text" class="form-control" id="img" name="img" placeholder="Enter image URL" value=${data[0].Image}>
+  </div>
+  <div class="form-group">
+  <span class="input">
+                            <select id="kind" name="kind" value=${data[0].Kind}>
+                                <option value="Fiction">Fiction/Фантастика</option>
                                 <option value="Sci-fiction">Sci-Fiction/Научнофантастични</option>
                                 <option value="Business">Business/Бизнес</option>
                                 <option value="History">History/Историческа</option>
                                 <option value="Romance">Romance/Романтика</option>
                                 <option value="Mistery">Mistery/Мистерии</option>
                                 <option value="Classic">Clasic/Класика</option>
+                                <option value="Erothic">Erothic/Еротична</option>
                                 <option value="Other">Other/Друга</option>
                             </select>
-                        </span>
-                    </p>
-                    <input class="button submit" type="submit" value="Save">
-                </fieldset>
-            </form>
-        </section>
+  </div>
+  <button type="submit" class="btn btn-primary">Create Review</button>
+</form>
 `
 
 async function onSubmit(ctx,data,event){

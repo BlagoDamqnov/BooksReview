@@ -8,7 +8,7 @@ import { successfullyAlert } from './../api/alert.js';
 
 const settingsTemplate = (user,onUpdate) =>html`
      <form  class="update" @submit=${onUpdate}>
-       <label class="updateProfile">Username</label>
+       <label class="updateProfile">Update Username</label>
         <span class="input">
             <input type="text" name="username" id="username" placeholder="Username" value="${user.username}">
         </span>
@@ -16,16 +16,16 @@ const settingsTemplate = (user,onUpdate) =>html`
     </form>
 
     <form class="update">
-       <label class="updateProfile">Email</label>
+       <label class="updateProfile">Update email or Delete profile</label>
         <span class="input">
             <input type="text" name="email" id="email" placeholder="Email">
         </span>
         <button class="button">Update</button>
+        <form>
+            <button class="button" id='del'>Delete Profile</button>        
+        </form>
     </form>
 
-    <form>
-        <button class="button" id='del'>Delete Profile</button>        
-    </form>
 `;
 
 async function onUpdateProfile(ctx,data,event){

@@ -1,5 +1,5 @@
 body {
-    background-color: #14213D;
+    background-color: rgb(240, 240, 240);
     padding: 0px;
     margin: 0px;
     height: 100%;
@@ -36,7 +36,10 @@ body {
     margin: 5rem auto;
 }
 .updateProfile{
-    color:white
+    color:black
+}
+.update {
+    margin-top:25px;
 }
 .userImage{
     width: 50px;
@@ -51,7 +54,7 @@ body {
     padding: 0.3rem 1rem;
     text-decoration: none;
     font-weight: bold;
-    background:#F28627;
+    background:#4CAF50;
     color: white;
     border: none;
     font-size: 1rem;
@@ -159,7 +162,7 @@ div.actions a {
 footer {
     margin-top: auto;
     text-align: center;
-    background: #F28627;
+    background: rgb(82, 122, 230);;
 }
 
 footer p {
@@ -167,16 +170,16 @@ footer p {
     font-weight: bold;
     margin: 0rem;
     color: white;
-    background-color: #F28627;
+    background-color: rgb(82, 122, 230);;;
 }
 .no-books {
     font-weight: bold;
     font-size: large;
     text-align: center;
-    color:white
+    color:black
 }
 .search{
-    color:white;
+    color:black;
     font-family: arial;
     font-size: 24px;
     display: flex;
@@ -188,7 +191,7 @@ textarea#description {
 }
 
 .otherBooks {
-    background-color: rgb(214, 210, 210);
+    background-color: rgb(245, 245, 245);
     border-radius: 10px;
     text-align: center;
     margin: 2rem;
@@ -216,5 +219,8 @@ textarea#description {
 
 .details {
     margin:  30px;
-    color:white
+    color:black
 }
+
+
+  

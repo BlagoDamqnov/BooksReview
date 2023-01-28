@@ -6,46 +6,24 @@ import { successfullyAlert } from './../api/alert.js';
 
 
 const registerTemplate = (onSubmit) => html`
-  <section id="register-page" class="register">
-            <form id="register-form" action="" method="" @submit = ${onSubmit}>
-                <fieldset>
-                    <legend>Register Form</legend>
-                    <p class="field">
-                        <label for="email">Email</label>
-                        <span class="input">
-                            <input type="text" name="email" id="email" placeholder="Email">
-                        </span>
-                    </p>
-                    <p class="field">
-                        <label for="username">Username</label>
-                        <span class="input">
-                            <input type="text" name="username" id="username" placeholder="Username">
-                        </span>
-                    </p>
-                    <p class="field">
-                        <label for="password">Password</label>
-                        <span class="input">
-                            <input type="password" name="password" id="password" placeholder="Password">
-                        </span>
-                    </p>
-                    <p class="field">
-                        <label for="repeat-pass">Repeat Password</label>
-                        <span class="input">
-                            <input type="password" name="confirm-pass" id="repeat-pass" placeholder="Repeat Password">
-                        </span>
-                    </p>
-                    <p class="field">
-                        <label for="img">Image</label>
-                        <span class="input">
-                            <input type="input" name="img" id="img" placeholder="Image">
-                        </span>
-                    </p>
-                    <input class="button submit" type="submit" value="Register">
-                    <a href='/login'>Login now</a>
-                </fieldset>
-            </form>
-        </section>
-
+ <form  @submit=${onSubmit} class="register-form">
+  <div class="form-group">
+    <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
+  </div>
+  <div class="form-group">
+    <input type="text" class="form-control" id="username" name="username" placeholder="Enter username">
+  </div>
+  <div class="form-group">
+    <input type="password" class="form-control" id="password" name="password" placeholder="Enter password">
+  </div>
+  <div class="form-group">
+    <input type="password" class="form-control" id="password-confirm" name="confirm-pass" placeholder="Enter re-password">
+  </div>
+  <div class="form-group">
+    <input type="text" class="form-control" id="img" name="img" placeholder="Image URL">
+  </div>
+  <button type="submit" class="btn btn-primary">Register</button>
+</form>
 `
 async function onSubmit(ctx,data,event){
     if(data.email == '' || data.password == '' || data['confirm-pass'] == '' ||data.username==''){

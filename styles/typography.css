@@ -19,7 +19,28 @@ html {
 		font-size: 18px;
 	 }
 }
-
+@media screen and (max-width: 600px) {
+	.register-form {
+	  width: 90%;
+	  margin: 0 auto;
+	}
+  }
+  /* Responsive styles */
+  @media (max-width: 600px) {
+    nav {
+      flex-wrap: wrap;
+      align-items: flex-start;
+    }
+    nav ul {
+      width: 100%;
+    }
+    nav ul li {
+      width: 100%;
+      text-align: center;
+      margin: 10px 0;
+    }
+  }
+  
 /* body, table, th, td, form, input, textarea, option, select {
 	font: inherit;
 }

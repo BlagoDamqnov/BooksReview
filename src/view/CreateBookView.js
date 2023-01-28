@@ -6,37 +6,22 @@ import { successfullyAlert } from './../api/alert.js';
 
 
 const CreateTemple = (onSubmit) =>html`
-<section id="create-page" class="create">
-            <form id="create-form" @submit = ${onSubmit}>
-                <fieldset>
-                    <legend>Add new Book</legend>
-                    <p class="field">
-                        <label for="title">Title</label>
-                        <span class="input">
-                            <input type="text" name="title" id="title" placeholder="Title">
-                        </span>
-                    </p>
-                    <p class="field">
-                        <label for="author">Author</label>
-                        <span class="input">
-                            <textarea name="author" id="author" placeholder="author"></textarea>
-                        </span>
-                    </p>
-                    <p class="field">
-                        <label for="review">Review</label>
-                        <span class="input">
-                            <textarea name="review" id="review" placeholder="Review"></textarea>
-                        </span>
-                    </p>
-                   <p class="field">
-                        <label for="img">Image</label>
-                        <span class="input">
-                            <textarea name="img" id="img" placeholder="Image"></textarea>
-                        </span>
-                    </p>
-                    <p class="field">
-                        <label for="kind">Kind</label>
-                        <span class="input">
+<form  @submit=${onSubmit} class="register-form">
+<h3>Create Review</h3>
+  <div class="form-group">
+    <input type="text" class="form-control" id="title" name="title" placeholder="Enter Title">
+  </div>
+  <div class="form-group">
+    <input type="text" class="form-control" id="author" name="author" placeholder="Enter Author">
+  </div>
+  <div class="form-group">
+    <input type="text" class="form-control" id="review" name="review" placeholder="Enter Review">
+  </div>
+  <div class="form-group">
+    <input type="text" class="form-control" id="img" name="img" placeholder="Enter image URL">
+  </div>
+  <div class="form-group">
+  <span class="input">
                             <select id="kind" name="kind">
                                 <option value="Fiction">Fiction/Фантастика</option>
                                 <option value="Sci-fiction">Sci-Fiction/Научнофантастични</option>
@@ -48,12 +33,9 @@ const CreateTemple = (onSubmit) =>html`
                                 <option value="Erothic">Erothic/Еротична</option>
                                 <option value="Other">Other/Друга</option>
                             </select>
-                        </span>
-                    </p>
-                    <input class="button submit" type="submit" value="Add Book">
-                </fieldset>
-            </form>
-        </section>
+  </div>
+  <button type="submit" class="btn btn-primary">Create Review</button>
+</form>
 `
 async function onSubmit(ctx,data,event){
     if(data.title == '' || data.review == '' || data.author == '' || data.kind == ''||data.img=='') {

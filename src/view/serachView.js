@@ -4,11 +4,12 @@ import {previewTemplate} from './homeView.js'
 
 const searchTemplate = (onChange,onSearch,books = []) =>html`
 <section id="searchPage" class="dashboard">
-    <h1 class='search'>Search Books</h1>
-
-    <div class="search">
-        <input id="search-input" type="text" name="search" placeholder="Enter something" @input =${onChange}>
-        <button class="button-list" @click=${onSearch}>Search</button>
+    <div class="search-container">
+      <form>
+        <h3>Search Books</h3>
+        <input type="text" placeholder="Search..." @input=${onChange}>
+        <button class= "button"type="submit" @click=${onSearch}>Search</button>
+      </form>
     </div>
     ${books.length>0
            ?html`

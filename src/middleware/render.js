@@ -13,19 +13,27 @@ const navigationTemplate = (user) =>html`
                     ${user
                      ?html`
                      <div id="user">
-                        <a class="button" href="/settings"><img class= "userImage" src="${user.img}"></a>
+                        <a href="/settings"><img class= "userImage" src="${user.img}"></a>
                         <span id="welcome">Welcome, ${user.username}</span>
-                        <a class="button" href="/myBook">My Books</a>
-                         <a class="button" href="/myBook">My Books</a>
-                         <a class="button" href="/search">Search</a>
-                         <a class="button" href="/create">Add Book</a>
-                         <a class="button" href="/logout">Logout</a>
+                        
+                        <nav>
+                        <ul>
+                            <li><a href="myBook">MyBooks</a></li>
+                            <li><a href="/search">Search</a></li>
+                            <li><a href="/create">AddBook</a></li>
+                            <li><a href="/logout">Logout</a></li>
+                        </ul>
+                        </nav>
                         </div>`
                      :html`
                      <!-- Guest users -->
                      <div id="guest">
-                         <a class="button" href="/login">Login</a>
-                         <a class="button" href="/register">Register</a>
+                     <nav>
+                        <ul>
+                            <li><a href="/login">Login</a></li>
+                            <li><a href="/register">Register</a></li>
+                        </ul>
+                    </nav>
                      </div>
                      `}
                 </section>
