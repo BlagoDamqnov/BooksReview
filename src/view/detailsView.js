@@ -13,7 +13,7 @@ const detailsTemplate = (data,onDelete,user) => html`
                 <h3>${data[0].Author}</h3>
                 <p class="type">Type: ${data[0].Kind}</p>
                 <p class="img"><img src="${data[0].Image}"></p>
-                <img class = "userImage" src="${user[0].Image}"><p>Creator:${user[0].Username}</p><img/>
+                <a href="/userBook"><img class = "userImage" src="${user[0].Image}"><p>Creator:${user[0].Username}</p><img/></a>
                 ${data.IsOwner?
                 html`
                 <div class="actions">
@@ -43,7 +43,7 @@ const detailsTemplateSecond = (data,onDelete,user) => html`
                 <h3>${data[0].Author}</h3>
                 <p class="type">Type: ${data[0].Kind}</p>
                 <p class="img"><img src="${data[0].Image}"></p>
-                <img class = "userImage" src="${user[0].Image}"><p>Creator:${user[0].Username}</p><img/>
+                <a href="/userBook"><img class = "userImage" src="${user[0].Image}"><p>Creator:${user[0].Username}</p><img/></a>
                 ${data.IsOwner?
                 html`
                 <div class="actions">
@@ -88,11 +88,9 @@ export async function detailsPage(ctx){
     let isLike  = await isLiked(bookId,userId[0].Id);
     if(isLike.length>0){
         ctx.render(detailsTemplateSecond(result,onDelete,user));
-        console.log(result);
     }else{
         ctx.render(detailsTemplate(result,onDelete,user));
         
-        console.log(result);
         document.getElementById('likeBtn').addEventListener('click', function(e){
             const element = e.target;
             createLike(bookId,userId[0].Id);

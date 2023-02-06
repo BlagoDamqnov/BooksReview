@@ -39,6 +39,7 @@ const EditTemplate = (data,onSubmit) =>html`
 `
 
 async function onSubmit(ctx,data,event){
+  console.log(ctx);
     let bookId = ctx.params.id
     if(Object.values(data).some(f=>f=='')){
         return notify('All fields are required!')
@@ -51,12 +52,12 @@ async function onSubmit(ctx,data,event){
       data.image,
    );
    event.target.reset();
-   ctx.page.redirect('/details/'+bookId)
+   ctx.page.redirect(`/details/${Number(bookId)}`)
    successfullyAlert('Edited book successfully!')
 }
 export async function EditPage(ctx){
+  console.log(ctx);
     const id = ctx.params.id;
     const result = await getBookByBookId(id);
-   
     ctx.render(EditTemplate(result,CreateSubmitHandler(ctx,onSubmit)))
 }

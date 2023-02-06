@@ -12,7 +12,7 @@ app.use(cors());
 
 
 const PORT = 3030;
-app.listen(PORT,()=>console.log('Hello'));
+app.listen(PORT);
 
 app.post('/users/login', async (req, res) => {
     let email = req.body.email;

@@ -34,7 +34,11 @@ async function onSubmit(ctx,data,event){
     }
     
     const token = getAccessToken();
-    await register(token,data.email,data.password,data.username,data.img);
+    if(data.img == ''){
+      await register(token,data.email,data.password,data.username,'../../images/defaultUser');
+    }else{
+      await register(token,data.email,data.password,data.username,data.img);
+    }
     successfullyAlert('Successfully registered!')
     event.target.reset();
     ctx.page.redirect('/');

@@ -17,6 +17,7 @@ html {
 @media screen and (min-width: 1600px) {
 	html { 
 		font-size: 18px;
+		font-family: SourceSans;
 	 }
 }
 @media screen and (max-width: 600px) {

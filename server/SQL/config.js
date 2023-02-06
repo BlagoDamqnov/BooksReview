@@ -11,7 +11,7 @@ let connectionStringData = {
 async function connectWithMSSQLDatabase() {
     try{
         sql.connect(connectionStringData)
-        console.log('successfully connected with the database')
+        console.log('Successfully connected with the database')
     }
     catch(err)
     {

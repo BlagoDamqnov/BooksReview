@@ -230,3 +230,6 @@ input[type="submit"]:hover {
 .register-form .form-group {
     width: 100%;
 }
+.input-invalid:invalid {
+	border-color: red;
+  }

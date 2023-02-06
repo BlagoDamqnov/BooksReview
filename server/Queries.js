@@ -36,7 +36,10 @@ async function getUserByEmail(email){
     return result.recordset;
 }
 async function searchBook(input){
-    let result = await sql.query `SELECT * FROM dbo.Books WHERE Title = ${input} OR Kind = ${input} OR Author = ${input}`;
+    let result = await sql.query(`SELECT * FROM dbo.Books WHERE Title = N'${input}' OR Kind = N'${input}' OR Author = N'${input}' OR Title LIKE N'%${input}%' OR Kind LIKE N'%${input}%' OR Author LIKE N'%${input}%' `,{
+            input: sql.NVarChar,
+            value: input
+    });
     return result.recordset;
 }
 async function getBook(){

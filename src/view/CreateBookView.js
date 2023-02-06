@@ -43,8 +43,8 @@ async function onSubmit(ctx,data,event){
     }
     const userId = await getUserId();
     event.target.reset();
-    ctx.page.redirect('/')
     await Create(data.title,data.author,data.review,data.kind,data.img,userId[0].Id);
+    ctx.page.redirect('/')
     successfullyAlert('Created book successfully!')
 }
 export function CreatePage(ctx){
