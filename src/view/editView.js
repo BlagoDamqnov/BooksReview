@@ -33,13 +33,12 @@ const EditTemplate = (data,onSubmit) =>html`
                                 <option value="Erothic">Erothic/Еротична</option>
                                 <option value="Other">Other/Друга</option>
                             </select>
-  </div>
+  </div>з
   <button type="submit" class="btn btn-primary">Create Review</button>
 </form>
 `
 
 async function onSubmit(ctx,data,event){
-  console.log(ctx);
     let bookId = ctx.params.id
     if(Object.values(data).some(f=>f=='')){
         return notify('All fields are required!')
@@ -49,14 +48,13 @@ async function onSubmit(ctx,data,event){
       data.kind,
       data.author,
       data.review,
-      data.image,
+      data.img,
    );
    event.target.reset();
-   ctx.page.redirect(`/details/${Number(bookId)}`)
+   ctx.page.redirect(`/details/${(bookId)}`)
    successfullyAlert('Edited book successfully!')
 }
 export async function EditPage(ctx){
-  console.log(ctx);
     const id = ctx.params.id;
     const result = await getBookByBookId(id);
     ctx.render(EditTemplate(result,CreateSubmitHandler(ctx,onSubmit)))
