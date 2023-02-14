@@ -29,13 +29,17 @@ page('/details/:id',detailsPage)
 page('/myBook',MyBookPage);
 page('/settings',settingsPage)
 page('/userBook',UserBooks)
+
+page(addSession);
+page(addRender);
+
 page.start();
 
 function logoutFunc(ctx){
     const choice = confirm('Are you sure to Logout?');
-    if(choice){
-        logout();
-        successfullyAlert('Successfully logged out!')
-        ctx.page.redirect('/login')
+        if(choice){
+            logout();
+            successfullyAlert('Successfully logged out!')
+            ctx.page.redirect('/login')
+        }
     }
-}

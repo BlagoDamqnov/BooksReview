@@ -3,15 +3,13 @@ import {html,render} from '../../../node_modules/lit-html/lit-html.js'
 const root = document.getElementById('site-content');
 const headerElement = document.getElementById('site-header');
 
-
 const navigationTemplate = (user) =>html`
             <!-- Navigation -->
             <nav class="navbar">
                 <section class="navbar-dashboard">
                     <a href="/">Reviews</a>
-                    <!-- Logged-in users -->
                     ${user
-                     ?html`
+                        ?html`
                      <div id="user">
                         <a href="/settings"><img class= "userImage" src="${user.img}"></a>
                         <span id="welcome">Welcome, ${user.username}</span>
@@ -25,8 +23,7 @@ const navigationTemplate = (user) =>html`
                         </ul>
                         </nav>
                         </div>`
-                     :html`
-                     <!-- Guest users -->
+                        :html`
                      <div id="guest">
                      <nav>
                         <ul>
@@ -39,11 +36,14 @@ const navigationTemplate = (user) =>html`
                 </section>
             </nav>
 `
+
 function ctxRender(content){
     render(content,root)
 }
+
 export function addRender(ctx,next){
-    render(navigationTemplate(ctx.user),headerElement)
+    render(navigationTemplate(ctx.user),headerElement);
     ctx.render =ctxRender;
+
     next();
 }

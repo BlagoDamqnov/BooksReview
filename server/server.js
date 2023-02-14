@@ -3,15 +3,16 @@ const cors = require('cors');
 const jwt = require("jsonwebtoken");
 const bcrypt = require('bcrypt');
 let mssql_configuration = require('../server/SQL/config.js');
-const { isLiked,likeBook,deleteBookById,getBookByUserId,editBookById,getBookByBookId,createReview,getUserByEmail,searchBook,getBook,UserExist,registerUser, getUserById, updateUsername, deleteProfile} = require('./Queries.js');
 
+const {  isLiked,likeBook,deleteBookById,getBookByUserId,editBookById,getBookByBookId,createReview,getUserByEmail
+        ,searchBook,getBook,UserExist,registerUser, getUserById, updateUsername, deleteProfile} = require('./Queries.js');
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
-
 const PORT = 3030;
+
 app.listen(PORT);
 
 app.post('/users/login', async (req, res) => {
@@ -24,32 +25,30 @@ app.post('/users/login', async (req, res) => {
     try {
         let username = user[0].Username;
         let img = user[0].Image;
+
         if(user.length!==0)
         { 
-          
             let match =  await bcrypt.compare(password,user[0].Password);
+
             if(match){
                 const token = jwt.sign(data,'eds5f4sd5f4sdfsd4f45sd54fds4f54sd45');
                 const id = await getUserByEmail(email);
+
                 res.send({email,token,id,username,img});
-                console.log(id);
             }else{
                 res.status(409).json({
                     message:'Passwords do not match'
                 })
             }
         }
-        else
-        {
+        else{
             res.status(404).json({message:'This user does not exist.'})
         }
-    } catch (error) {
+    }catch (error) {
         res.status(409).json({
             message:'User not found'
         })
     }
-        
-        
 })
 
 app.post('/users/register',async (req,res)=>{
@@ -57,7 +56,9 @@ app.post('/users/register',async (req,res)=>{
     const password = await req.body.password;
     const username = await req.body.username;
     const img = await req.body.img;
+
     let user = (await UserExist(email)).recordset;
+
     const data = {email:email,password:password};
     
     if(user.length !== 0)
@@ -67,33 +68,31 @@ app.post('/users/register',async (req,res)=>{
         })
     }else{
         const token = jwt.sign(data,'eds5f4sd5f4sdfsd4f45sd54fds4f54sd45');
-        await registerUser(token,email, password,username,img)
+
+        await registerUser(token,email, password,username,img);
+
         const id = await getUserByEmail(email);
         res.send({email,token,id,username,img});
-         console.log(id);
-         console.log(img);
         }
 })
 
 app.get('/users/logout',(req,res)=>{
-    res.status(200).json('Successfully logout!');
+    res.status(204).json('Successfully logout!');
 })
 
 app.get('/data/books',async (req,res) =>{
      let books = await getBook();
-    res.send(books)
-    
+     res.status(200).send(books);
 })
 
 app.get('/data/books/:id',async (req,res) =>{
     let books = await getBookByUserId(req.params.id);
-    res.send(books);
+    res.status(200).send(books);
 })
 
 app.get(`/data/books/find/:title`,async(req,res) =>{
     let result = await searchBook(req.params.title);
-    console.log(result);
-    res.send(result);
+    res.status(200).send(result);
 })
 
 app.post('/data/create',async(req,res)=>{
@@ -103,8 +102,9 @@ app.post('/data/create',async(req,res)=>{
     const kind = await req.body.kind;
     const img = await req.body.img;
     const userId = await req.body.userId;
-    let books = await createReview (title,author,review,kind,img,userId);
-    res.status(204).send(books);
+
+    let books = await createReview(title,author,review,kind,img,userId);
+    res.send(books);
 })
 
 app.post('/data/book/like/:id',async(req,res) => {
@@ -124,8 +124,9 @@ app.put('/data/edit/:id',async(req,res)=>{
     const kind = await req.body.kind;
     const img = await req.body.img;
     const bookId = await req.params.id;
+
     let books = await editBookById(bookId,title,kind,author,review,img);
-    res.status(204).send(books);
+    res.status(200).send(books);
 })
 
 app.get('/data/details/:id',async (req, res)=>{
@@ -143,14 +144,15 @@ app.get('/data/users/:id',async (req, res)=>{
 })
 
 app.put('/data/update/username/:id',async (req, res)=>{
-const userId = await req.params.id;
-const username = await req.body.username;
+    const userId = await req.params.id;
+    const username = await req.body.username;
 
-await updateUsername(userId,username);
+    await updateUsername(userId,username);
 })
 
 app.delete('/data/users/delete/:id',async (req, res)=>{
     const userId = await req.params.id;
+
     await deleteProfile(userId);
     res.status(200).send({message: 'User deleted successfully'})
 });

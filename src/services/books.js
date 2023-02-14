@@ -15,27 +15,35 @@ const endpoints = {
 export async function getAllBookReviews(){
     return await api.get(endpoints.getAllBooks);
 }
+
 export async function Create(title,author,review,kind,img,userId){
     return await api.post(endpoints.createReview,{title,author,review,kind,img,userId});
 }
+
 export async function getBookByUserId(id){
     return await api.get(endpoints.getBookByUserId+id);
 }
+
 export async function getBookByBookId(id){
     return await api.get(endpoints.getBookByBookId+id);
 }
-export  function deleteBook(id){
+
+export function deleteBook(id){
     return  api.del(endpoints.deleteBook+id);
 }
+
 export async function EditBook(id,title,kind,author,review,img){
-    return await api.put(endpoints.editBook+id,{title,kind,author,review,img});
+   return await api.put(endpoints.editBook+id,{title,kind,author,review,img});
 }
+
 export function createLike(id,userId){
     return  api.post(endpoints.createLike+id,{userId});
 }
+
 export function searchBook(input){
     return api.get(endpoints.searchBook+input)
 }
+
 export function isLiked(bookId,userId){
     return api.post(endpoints.isLiked,{bookId,userId});
 }
