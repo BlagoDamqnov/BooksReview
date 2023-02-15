@@ -20,10 +20,10 @@ const settingsTemplate = (user,onUpdate) =>html`
                 <input type="text" name="email" id="email" placeholder="Email">
             </span>
             <button class="button">Update</button>
-            <form>
-                <button class="button" id='del'>Delete Profile</button>        
-            </form>
-    </form>
+        </form>
+        <form class="update">
+            <button class="button" id='del'>Delete Profile</button>        
+        </form>
 
 `;
 

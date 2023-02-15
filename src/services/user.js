@@ -7,7 +7,8 @@ const endpoints = {
     logoutUrl:'/users/logout',
     getInfo:'/data/users/',
     updateUsername:'/data/update/username/',
-    deleteProfile:'/data/users/delete/'
+    deleteProfile:'/data/users/delete/',
+    updateEmail:'/data/update/email/'
 }
 
 export async function login(email,password){
@@ -35,4 +36,8 @@ export async function updateUsername(id,username){
 
 export async function deleteProfile(id){
     await api.del(endpoints.deleteProfile+id);
+}
+
+export async function updateEmail(id,email){
+    return await api.put(endpoints.updateEmail+id,{email});
 }

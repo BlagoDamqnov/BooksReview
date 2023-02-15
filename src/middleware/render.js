@@ -11,10 +11,9 @@ const navigationTemplate = (user) =>html`
                     ${user
                         ?html`
                      <div id="user">
-                        <a href="/settings"><img class= "userImage" src="${user.img}"></a>
-                        <span id="welcome">Welcome, ${user.username}</span>
-                        
                         <nav>
+                        <a href="/settings"><img class= "userImage" src="${user.img}"></a>
+                        <span id="welcome">${user.username}</span>
                         <ul>
                             <li><a href="myBook">MyBooks</a></li>
                             <li><a href="/search">Search</a></li>

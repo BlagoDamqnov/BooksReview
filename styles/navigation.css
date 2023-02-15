@@ -4,7 +4,7 @@ nav.navbar {
   justify-content: flex-end;
   align-self: center;  
   letter-spacing: 0.05rem;
-  background: rgb(82, 122, 230);
+  background: white;
   color: white;
 }
 #site-header > nav > section.navbar-dashboard > a{
@@ -13,14 +13,14 @@ nav.navbar {
     align-self: center;
     font-weight: bold;
     font-size: 1.5rem;
-    color: white;
+    color: black;
     margin-left:15px;
 }
 .button:hover,
 nav.navbar ul li a:hover,
 nav.navbar ul li:hover > a {
   background: white(202, 221, 202);
-  color: white;
+  color: black;
   font-weight: bold;
 }
 .dashboard nav{
@@ -50,7 +50,10 @@ nav {
     margin: 0 10px;
 }
   
-  nav ul li a {
-    color:white;
+nav ul li a {
+    color:black;
     text-decoration: none;
+}
+nav ul li a:hover {
+  color:red !important
 }

@@ -6,7 +6,7 @@ async function isLiked(bookId,userId){
 }
 async function likeBook(bookId,userId){
     await sql.query `UPDATE Books SET [Like] = [Like] + 1 WHERE Id = ${bookId}
-                     INSERT INTO dbo.Likes(BookId,UserId) VALUES (${bookId},${userId})`;
+                     INSERT INTO dbo.Likes(BookId,UserId) VALUES (${bookId},${userId})`
 }
 async function deleteBookById(bookId) {
     await sql.query(`DELETE FROM Books WHERE Id = ${bookId}`);
@@ -58,6 +58,9 @@ async function registerUser(accessToken,email, password,username,img)
 async function updateUsername(userId,username){
     await sql.query`UPDATE dbo.Users SET Username = ${username} WHERE Id=${userId}`
 }
+async function updateEmail(userId,email){
+    await sql.query`UPDATE dbo.Users SET Email = ${email} WHERE Id=${userId}`
+}
 async function deleteProfile(userId){
     await sql.query`
     BEGIN TRANSACTION
@@ -76,7 +79,7 @@ async function deleteProfile(userId){
     `
 }
 module.exports = {
-    isLiked
+     isLiked
     ,likeBook
     ,deleteBookById
     ,getBookByUserId
@@ -91,4 +94,5 @@ module.exports = {
     ,getUserById
     ,updateUsername
     ,deleteProfile
+    ,updateEmail
 }

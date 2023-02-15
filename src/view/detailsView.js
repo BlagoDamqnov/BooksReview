@@ -13,7 +13,8 @@ const detailsTemplate = (data,onDelete,user) => html`
                                 <h3>${data[0].Author}</h3>
                                 <p class="type">Type: ${data[0].Kind}</p>
                                 <p class="img"><img src="${data[0].Image}"></p>
-                                <a href="/userBook"><img class = "userImage" src="${user[0].Image}"><p>Creator:${user[0].Username}</p><img/></a>
+                                <p id="creatorName">Creator:${user[0].Username}</p>
+                                <a class="creatorImg"><img class = "userImage" src="${user[0].Image}"><img/></a>
                                 ${data.IsOwner?
                                 html`
                                 <div class="actions">
@@ -23,7 +24,11 @@ const detailsTemplate = (data,onDelete,user) => html`
                                 </div>
                                 `:
                                 localStorage.length>0
-                                ?html`<button class="button" id = "likeBtn" disable>LIKE</button>
+                                ?html`
+                                    <div id ="btnWrapper">
+                                    <button class="button" id = "likeBtn">Like</button>
+                                    <button class="button" id = "disLikeBtn">Dislike</button>
+                                    </div>
                                         <label>LIKE:${data[0].Like}</label>
                                         `
                                     :nothing}
@@ -44,7 +49,8 @@ const detailsTemplateSecond = (data,onDelete,user) => html`
                                     <h3>${data[0].Author}</h3>
                                     <p class="type">Type: ${data[0].Kind}</p>
                                     <p class="img"><img src="${data[0].Image}"></p>
-                                    <a href="/userBook"><img class = "userImage" src="${user[0].Image}"><p>Creator:${user[0].Username}</p><img/></a>
+                                    <p id="creatorName">Creator:${user[0].Username}</p>
+                                    <a class="creatorImg"><img class = "userImage" src="${user[0].Image}"><img/></a>
                                     ${data.IsOwner?
                                     html`
                                     <div class="actions">
@@ -92,18 +98,27 @@ export async function detailsPage(ctx){
         }
         let isLike = await isLiked(bookId,userId[0].Id);
 
-        if(isLike.length>0||result.IsOwner){
+        if(isLike.length>0 || result.IsOwner){
             ctx.render(detailsTemplateSecond(result,onDelete,user));
         }else{
             ctx.render(detailsTemplate(result,onDelete,user));
 
-            document.getElementById('likeBtn').addEventListener('click', function(e){
+            var likeBtn = document.getElementById('likeBtn');
+            
+            likeBtn.addEventListener('click', function(e){
                 const element = e.target;
-
                 createLike(bookId,userId[0].Id);
                 
                 element.style.visibility = 'hidden';
                 ctx.page.redirect('/details/'+bookId)
-            })
+            });
+            ctx.page.redirect('/details/'+bookId)
         }
+
+        document.getElementsByClassName('creatorImg')[0].addEventListener('mouseenter',()=>{
+            document.getElementById('creatorName').style.display = 'block';
+        });
+        document.getElementsByClassName('creatorImg')[0].addEventListener('mouseleave',()=>{
+            document.getElementById('creatorName').style.display = 'none';
+        });
 }

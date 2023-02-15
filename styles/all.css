@@ -1,5 +1,5 @@
 body {
-    background-color: rgb(240, 240, 240);
+    background: rgba(219, 218, 218, 0.733);
     padding: 0px;
     margin: 0px;
     height: 100%;
@@ -42,7 +42,7 @@ body {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    border: 2px solid;
+    border: 2px;
     margin-bottom: 0 !important;
     padding-bottom: 0 !important;
 }
@@ -145,14 +145,14 @@ div.actions a {
 footer {
     margin-top: auto;
     text-align: center;
-    background: rgb(82, 122, 230);;
+    background: rgb(82, 122, 230);
 }
 footer p {
     padding: 1rem 0;
     font-weight: bold;
     margin: 0rem;
-    color: white;
-    background-color: rgb(82, 122, 230);;;
+    color: black;
+    background-color: white;
 }
 .no-books {
     font-weight: bold;
@@ -173,18 +173,18 @@ textarea#description {
 }
 .otherBooks {
     background-color: rgb(245, 245, 245);
-    border-radius: 10px;
+    border-radius: 4px;
     text-align: center;
     margin: 2rem;
     position: relative;
-    width: 350px;
+    width: 200px;
     height: auto;
     transition: all 0.3s cubic-bezier(.50, .80, .25, 1);
     box-shadow: -8px -2px 28px -8px #000000;
     align-items: center;
 }
 .otherBooks:hover {
-    box-shadow: 30px 30px 100px 10px #000000;
+    box-shadow: 10px 10px 50px 5px #2e2e2e;
 }
 .details > .book-information > .img {
     width: 60%;
@@ -198,6 +198,20 @@ textarea#description {
     margin:  30px;
     color:black
 }
-
-
-  
+#welcome{
+    color:black
+}
+.row {
+    text-align: center;
+ }
+.column {
+    display: flex;
+    margin: 10px;
+    padding: 10px;
+}
+#creatorName{
+    display: none;
+}
+#noActiveBtn{
+ background-color: red;
+}

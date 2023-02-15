@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 let mssql_configuration = require('../server/SQL/config.js');
 
 const {  isLiked,likeBook,deleteBookById,getBookByUserId,editBookById,getBookByBookId,createReview,getUserByEmail
-        ,searchBook,getBook,UserExist,registerUser, getUserById, updateUsername, deleteProfile} = require('./Queries.js');
+        ,searchBook,getBook,UserExist,registerUser, getUserById, updateUsername, deleteProfile,updateEmail} = require('./Queries.js');
 
 const app = express();
 app.use(express.json());
@@ -136,6 +136,7 @@ app.get('/data/details/:id',async (req, res)=>{
 
 app.delete('/data/delete/:id',async (req, res)=>{
     await deleteBookById(req.params.id);
+    res.status(200);
 })
 
 app.get('/data/users/:id',async (req, res)=>{
@@ -148,7 +149,25 @@ app.put('/data/update/username/:id',async (req, res)=>{
     const username = await req.body.username;
 
     await updateUsername(userId,username);
+    res.status(200);
 })
+
+app.put('/data/update/email/:id',async (req, res)=>{
+    const userId = await req.params.id;
+    const email = await req.body.email;
+
+    let user = (await UserExist(email)).recordset;
+
+    if(user.length >=1)
+    {
+        res.status(409).json({
+            message:'This User is already exist'
+        })
+    }else{
+        await updateEmail(userId,email);
+        res.status(204);
+    }
+});
 
 app.delete('/data/users/delete/:id',async (req, res)=>{
     const userId = await req.params.id;
