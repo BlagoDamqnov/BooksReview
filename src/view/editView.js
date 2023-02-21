@@ -15,7 +15,7 @@ const EditTemplate = (data,onSubmit) =>html`
             <input type="text" class="form-control" id="author" name="author" placeholder="Enter Author" value=${data[0].Author}>
           </div>
           <div class="form-group">
-            <input type="text" class="form-control" id="review" name="review" placeholder="Enter Review" value=${data[0].Review}>
+          <textarea id="review" class="form-control" name="review" placeholder="Description" rows="5" cols="50">${data[0].Review}</textarea>
           </div>
           <div class="form-group">
             <input type="text" class="form-control" id="img" name="img" placeholder="Enter image URL" value=${data[0].Image}>

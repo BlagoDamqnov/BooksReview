@@ -1,5 +1,5 @@
 body {
-    background: rgba(219, 218, 218, 0.733);
+    background: #F3F2EF;
     padding: 0px;
     margin: 0px;
     height: 100%;
@@ -148,6 +148,7 @@ footer {
     background: rgb(82, 122, 230);
 }
 footer p {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     padding: 1rem 0;
     font-weight: bold;
     margin: 0rem;
@@ -182,6 +183,7 @@ textarea#description {
     transition: all 0.3s cubic-bezier(.50, .80, .25, 1);
     box-shadow: -8px -2px 28px -8px #000000;
     align-items: center;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
 .otherBooks:hover {
     box-shadow: 10px 10px 50px 5px #2e2e2e;
@@ -215,3 +217,38 @@ textarea#description {
 #noActiveBtn{
  background-color: red;
 }
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .pagination a {
+    display: inline-block;
+    padding: 8px 16px;
+    text-decoration: none;
+    color: #333;
+    border: 1px solid #ccc;
+  }
+  
+  .pagination .active {
+    background-color: #333;
+    color: #fff;
+  }
+  
+  .pagination a:hover:not(.active) {
+    background-color: #f1f1f1;
+  }
+  
+  .pagination .prev,
+  .pagination .next {
+    border-radius: 2px;
+  }
+  
+  .pagination .prev {
+    margin-right: 10px;
+  }
+  
+  .pagination .next {
+    margin-left: 10px;
+  }

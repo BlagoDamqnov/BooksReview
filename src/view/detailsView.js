@@ -27,7 +27,6 @@ const detailsTemplate = (data,onDelete,user) => html`
                                 ?html`
                                     <div id ="btnWrapper">
                                     <button class="button" id = "likeBtn">Like</button>
-                                    <button class="button" id = "disLikeBtn">Dislike</button>
                                     </div>
                                         <label>LIKE:${data[0].Like}</label>
                                         `
@@ -98,23 +97,20 @@ export async function detailsPage(ctx){
         }
         let isLike = await isLiked(bookId,userId[0].Id);
 
-        if(isLike.length>0 || result.IsOwner){
+        if(isLike.length>0||result.IsOwner){
             ctx.render(detailsTemplateSecond(result,onDelete,user));
         }else{
             ctx.render(detailsTemplate(result,onDelete,user));
 
-            var likeBtn = document.getElementById('likeBtn');
-            
-            likeBtn.addEventListener('click', function(e){
+            document.getElementById('likeBtn').addEventListener('click', function(e){
                 const element = e.target;
+
                 createLike(bookId,userId[0].Id);
-                
+
                 element.style.visibility = 'hidden';
                 ctx.page.redirect('/details/'+bookId)
-            });
-            ctx.page.redirect('/details/'+bookId)
+            })
         }
-
         document.getElementsByClassName('creatorImg')[0].addEventListener('mouseenter',()=>{
             document.getElementById('creatorName').style.display = 'block';
         });

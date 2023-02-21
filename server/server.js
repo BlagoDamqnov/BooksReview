@@ -109,7 +109,6 @@ app.post('/data/create',async(req,res)=>{
 
 app.post('/data/book/like/:id',async(req,res) => {
    await likeBook(req.params.id,req.body.userId);
-   res.status(204);
 });
 
 app.post('/data/book/like',async(req,res) => {

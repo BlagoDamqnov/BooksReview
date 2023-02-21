@@ -101,6 +101,7 @@ form textarea:focus {
 	padding: 2rem;
 	overflow: auto;
 	text-align: justify;
+	font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 .details {
 	display: flex;
