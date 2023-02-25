@@ -43,7 +43,7 @@ async function searchBook(input){
     return result.recordset;
 }
 async function getBook(){
-    let result = await sql.query `SELECT TOP(3) * FROM Books ORDER BY [Like] DESC`
+    let result = await sql.query `SELECT TOP(10) * FROM Books ORDER BY [Like] DESC`
     return result.recordset;
 }
 async function UserExist(email){

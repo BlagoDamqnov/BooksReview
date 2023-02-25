@@ -2,17 +2,17 @@ const express = require('express');
 const cors = require('cors');
 const jwt = require("jsonwebtoken");
 const bcrypt = require('bcrypt');
-let mssql_configuration = require('../server/SQL/config.js');
-
 const {  isLiked,likeBook,deleteBookById,getBookByUserId,editBookById,getBookByBookId,createReview,getUserByEmail
         ,searchBook,getBook,UserExist,registerUser, getUserById, updateUsername, deleteProfile,updateEmail} = require('./Queries.js');
+        
+let mssql_configuration = require('../server/SQL/config.js');
+const {emailRegex,passwordRegex} = require('./Validations');
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
 const PORT = 3030;
-
 app.listen(PORT);
 
 app.post('/users/login', async (req, res) => {
@@ -57,23 +57,39 @@ app.post('/users/register',async (req,res)=>{
     const username = await req.body.username;
     const img = await req.body.img;
 
-    let user = (await UserExist(email)).recordset;
+    const isValidPassword = passwordRegex.test(password);
+    const isValidEmail = emailRegex.test(email);
 
-    const data = {email:email,password:password};
-    
-    if(user.length !== 0)
-    {
-        res.status(409).json({
-            message:'This User is already exist'
-        })
-    }else{
-        const token = jwt.sign(data,'eds5f4sd5f4sdfsd4f45sd54fds4f54sd45');
+    if(isValidPassword){
+        if(!isValidEmail){
+            res.status(409).json({
+                message:'Email is not valid'
+            })
+        }else{
+            let user = (await UserExist(email)).recordset;
 
-        await registerUser(token,email, password,username,img);
-
-        const id = await getUserByEmail(email);
-        res.send({email,token,id,username,img});
+            const data = {email:email,password:password};
+            
+            if(user.length !== 0)
+            {
+                res.status(409).json({
+                    message:'This User is already exist'
+                })
+            }else{
+                const token = jwt.sign(data,'eds5f4sd5f4sdfsd4f45sd54fds4f54sd45');
+        
+                await registerUser(token,email, password,username,img);
+        
+                const id = await getUserByEmail(email);
+                res.send({email,token,id,username,img});
+                }
         }
+    }else{
+        res.status(409).json({
+            message:'Password must contain at least 8 characters and a-z A-Z and special character'
+        })
+    }
+  
 })
 
 app.get('/users/logout',(req,res)=>{
