@@ -22,7 +22,8 @@ const EditTemplate = (data,onSubmit) =>html`
           </div>
           <div class="form-group">
           <span class="input">
-                                    <select id="kind" name="kind" value=${data[0].Kind}>
+                                    <select id="kind" name="kind">
+                                    <option value="Fiction">${data[0].Kind}</option>
                                         <option value="Fiction">Fiction/Фантастика</option>
                                         <option value="Sci-fiction">Sci-Fiction/Научнофантастични</option>
                                         <option value="Business">Business/Бизнес</option>

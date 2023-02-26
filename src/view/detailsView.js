@@ -139,18 +139,19 @@ export async function detailsPage(ctx){
 
         userInformation.addEventListener('click', async (e)=>{
            let name = element.textContent.split(':')[1];
-           console.log(name);
            let getUser = await getUserByUsername(name);
-           var userId = getUser.recordset[0].Id;
-            let books = await getBookByUserId(userId);
 
-            console.log(books);
+           var userId = getUser.recordset[0].Id; 
+           let books = await getBookByUserId(userId);
+
             ctx.render(userBooks(books,name));
         });
-        document.getElementsByClassName('creatorImg')[0].addEventListener('mouseenter',()=>{
+
+       document.getElementsByClassName('creatorImg')[0].addEventListener('mouseenter',()=>{
                 document.getElementById('creatorName').style.display = 'block';
             });
-            document.getElementsByClassName('creatorImg')[0].addEventListener('mouseleave',()=>{
+
+       document.getElementsByClassName('creatorImg')[0].addEventListener('mouseleave',()=>{
                     document.getElementById('creatorName').style.display = 'none';
-                });
+      });
 }

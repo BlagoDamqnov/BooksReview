@@ -141,7 +141,7 @@ app.put('/data/edit/:id',async(req,res)=>{
     const bookId = await req.params.id;
 
     let books = await editBookById(bookId,title,kind,author,review,img);
-    res.status(200).send(books);
+    res.status(204).send(books);
 })
 
 app.get('/data/details/:id',async (req, res)=>{
