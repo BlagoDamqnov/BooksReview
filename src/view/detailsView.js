@@ -1,9 +1,9 @@
 import { html, nothing } from '../../node_modules/lit-html/lit-html.js'
 import { getUserId } from '../api/util.js';
-import { createLike, deleteBook, getBookByBookId } from '../services/books.js';
+import { createLike, deleteBook, getBookByBookId, getBookByUserId } from '../services/books.js';
 import { isLiked } from './../services/books.js';
 import { successfullyAlert } from './../api/alert.js';
-import { userInfo } from '../services/user.js';
+import { getUserByUsername, userInfo } from '../services/user.js';
 
 
 const detailsTemplate = (data,onDelete,user) => html`
@@ -13,7 +13,7 @@ const detailsTemplate = (data,onDelete,user) => html`
                                 <h3>${data[0].Author}</h3>
                                 <p class="type">Type: ${data[0].Kind}</p>
                                 <p class="img"><img src="${data[0].Image}"></p>
-                                <p id="creatorName">Creator:${user[0].Username}</p>
+                                <p id="creatorName"><a id="userInfo">Creator:${user[0].Username}</a></p>
                                 <a class="creatorImg"><img class = "userImage" src="${user[0].Image}"><img/></a>
                                 ${data.IsOwner?
                                 html`
@@ -48,7 +48,7 @@ const detailsTemplateSecond = (data,onDelete,user) => html`
                                     <h3>${data[0].Author}</h3>
                                     <p class="type">Type: ${data[0].Kind}</p>
                                     <p class="img"><img src="${data[0].Image}"></p>
-                                    <p id="creatorName">Creator:${user[0].Username}</p>
+                                    <p id="creatorName"><a  id="userInfo">Creator:${user[0].Username}</a></p>
                                     <a class="creatorImg"><img class = "userImage" src="${user[0].Image}"><img/></a>
                                     ${data.IsOwner?
                                     html`
@@ -71,7 +71,29 @@ const detailsTemplateSecond = (data,onDelete,user) => html`
                     </section>
 
 `
-
+const userBooks = (data,name) => html`
+    <h1>${name}'s books</h1>
+        <section id="dashboard-page" class="dashboard">
+            ${data.length>0
+            ?html`
+            <ul class="other-books-list">
+                ${data.map(previewTemplate)}
+              </ul>
+            `
+            :html`
+            <p class="no-books">No available my books review!</p>
+            `
+              }
+        </section>
+`
+const previewTemplate = (data) => html`
+        <li class="otherBooks">
+            <h3>${data.Title}</h3>
+            <p>Type: ${data.Kind}</p>
+            <img src="${data.Image}"></p>
+            <a class="button" href="/details/${data.Id}">Details</a>
+        </li>
+`
 export async function detailsPage(ctx){
     let bookId = ctx.params.id;
     let userId = await getUserId();
@@ -111,10 +133,24 @@ export async function detailsPage(ctx){
                 ctx.page.redirect('/details/'+bookId)
             })
         }
+
+        const element = document.getElementById('userInfo');
+        const userInformation = document.getElementsByClassName('creatorImg')[0];
+
+        userInformation.addEventListener('click', async (e)=>{
+           let name = element.textContent.split(':')[1];
+           console.log(name);
+           let getUser = await getUserByUsername(name);
+           var userId = getUser.recordset[0].Id;
+            let books = await getBookByUserId(userId);
+
+            console.log(books);
+            ctx.render(userBooks(books,name));
+        });
         document.getElementsByClassName('creatorImg')[0].addEventListener('mouseenter',()=>{
-            document.getElementById('creatorName').style.display = 'block';
-        });
-        document.getElementsByClassName('creatorImg')[0].addEventListener('mouseleave',()=>{
-            document.getElementById('creatorName').style.display = 'none';
-        });
+                document.getElementById('creatorName').style.display = 'block';
+            });
+            document.getElementsByClassName('creatorImg')[0].addEventListener('mouseleave',()=>{
+                    document.getElementById('creatorName').style.display = 'none';
+                });
 }

@@ -1,12 +1,19 @@
-import { html } from '../../node_modules/lit-html/lit-html.js'
-import {getBookByUserId } from "../services/books.js";
-import { getUserId } from './../api/util.js';
+// import { html } from '../../node_modules/lit-html/lit-html.js'
+// const id = require('./detailsView');
 
-const myBook = () => html`
-   <h1>dsa</h1>
-`
+// const userBook = (data) => html`
+//     <p>${id}</p>
+    
+// `
+// const previewTemplate = (data) => html`
+//         <li class="otherBooks">
+//             <h3>${data.Title}</h3>
+//             <p>Type: ${data.Kind}</p>
+//             <img src="${data.Image}"></p>
+//             <a class="button" href="/details/${data.Id}">Details</a>
+//         </li>
+// `
 
-export async function UserBooks(ctx){
-    console.log(ctx);
-    ctx.render(myBook());
-}
+// export async function userBooks(ctx){
+//     ctx.render(userBook());
+// }

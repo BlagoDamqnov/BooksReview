@@ -211,9 +211,9 @@ textarea#description {
     margin: 10px;
     padding: 10px;
 }
-#creatorName{
+/* #creatorName{
     display: none;
-}
+} */
 #noActiveBtn{
  background-color: red;
 }

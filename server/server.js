@@ -3,7 +3,7 @@ const cors = require('cors');
 const jwt = require("jsonwebtoken");
 const bcrypt = require('bcrypt');
 const {  isLiked,likeBook,deleteBookById,getBookByUserId,editBookById,getBookByBookId,createReview,getUserByEmail
-        ,searchBook,getBook,UserExist,registerUser, getUserById, updateUsername, deleteProfile,updateEmail} = require('./Queries.js');
+        ,searchBook,getBook,UserExist,registerUser, getUserById, updateUsername, deleteProfile,updateEmail,getUserByUsername} = require('./Queries.js');
         
 let mssql_configuration = require('../server/SQL/config.js');
 const {emailRegex,passwordRegex} = require('./Validations');
@@ -152,6 +152,13 @@ app.get('/data/details/:id',async (req, res)=>{
 app.delete('/data/delete/:id',async (req, res)=>{
     await deleteBookById(req.params.id);
     res.status(200);
+})
+
+app.get('/data/books/user/:username',async(req, res)=>{
+    let user = req.params.username;
+    let userId = await getUserByUsername(user);
+    
+    res.status(200).send(userId);
 })
 
 app.get('/data/users/:id',async (req, res)=>{

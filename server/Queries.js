@@ -15,6 +15,10 @@ async function getBookByUserId(userId){
     let result = await sql.query `SELECT * FROM Books WHERE userId = ${userId}`;
     return result.recordset;
 }
+async function getUserByUsername(username){
+    let result = await sql.query `SELECT Id FROM Users WHERE Username = ${username}`;
+    return result;
+}
 async function getUserById(userId){
     let result = await sql.query `SELECT * FROM Users WHERE Id = ${userId}`;
     return result.recordset;
@@ -95,4 +99,5 @@ module.exports = {
     ,updateUsername
     ,deleteProfile
     ,updateEmail
+    ,getUserByUsername
 }

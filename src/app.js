@@ -12,7 +12,6 @@ import { registerPage } from './view/registerView.js';
 import { searchPage } from './view/serachView.js';
 import { successfullyAlert } from './api/alert.js';
 import { settingsPage } from './view/SettingsView.js';
-import { UserBooks } from './view/userBooks.js';
 
 
 page(addSession);
@@ -28,7 +27,6 @@ page('/search',searchPage)
 page('/details/:id',detailsPage)
 page('/myBook',MyBookPage);
 page('/settings',settingsPage)
-page('/userBook',UserBooks)
 
 page(addSession);
 page(addRender);

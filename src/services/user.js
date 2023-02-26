@@ -8,7 +8,12 @@ const endpoints = {
     getInfo:'/data/users/',
     updateUsername:'/data/update/username/',
     deleteProfile:'/data/users/delete/',
-    updateEmail:'/data/update/email/'
+    updateEmail:'/data/update/email/',
+    getUserId:'/data/books/user/'
+}
+
+export async function getUserByUsername(username){
+    return await api.get(endpoints.getUserId+username);
 }
 
 export async function login(email,password){
