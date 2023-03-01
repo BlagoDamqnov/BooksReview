@@ -120,7 +120,7 @@ app.post('/data/create',async(req,res)=>{
     const userId = await req.body.userId;
 
     let books = await createReview(title,author,review,kind,img,userId);
-    res.send(books);
+    res.status(204).send(books);
 })
 
 app.post('/data/book/like/:id',async(req,res) => {

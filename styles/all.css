@@ -67,6 +67,12 @@ a {
 label{
     margin:right 0px;
 }
+.labelLike{
+    margin: 0 auto;
+    margin-left: -150px;
+    margin-top: -30px;
+    margin-right: -15px;
+}
 .fa-heart {
     color: red;
 }

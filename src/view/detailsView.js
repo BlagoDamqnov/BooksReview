@@ -20,7 +20,7 @@ const detailsTemplate = (data,onDelete,user) => html`
                                 <div class="actions">
                                     <a class="button" href="/edit/${data[0].Id}">Edit</a>
                                     <a class="button" href="javascript:void(0)" @click =${onDelete}>Delete</a>
-                                    <label>LIKE:${data[0].Like}</label>
+                                    <label class = 'likeBtnLabel'>LIKE:${data[0].Like}</label>
                                 </div>
                                 `:
                                 localStorage.length>0
@@ -28,7 +28,7 @@ const detailsTemplate = (data,onDelete,user) => html`
                                     <div id ="btnWrapper">
                                     <button class="button" id = "likeBtn">Like</button>
                                     </div>
-                                        <label>LIKE:${data[0].Like}</label>
+                                        <label class = 'likeBtnLabel'>LIKE:${data[0].Like}</label>
                                         `
                                     :nothing}
                         </div>
@@ -55,12 +55,12 @@ const detailsTemplateSecond = (data,onDelete,user) => html`
                                     <div class="actions">
                                         <a class="button" href="/edit/${data[0].Id}">Edit</a>
                                         <a class="button" href="javascript:void(0)" @click =${onDelete}>Delete</a>
-                                        <label>LIKE:${data[0].Like}</label>
+                                        <label class = 'likeBtnLabel'>LIKE:${data[0].Like}</label>
                                     </div>
                                     `:
                                     localStorage.length>0
                                     ?html`
-                                            <label>LIKE:${data[0].Like}</label>
+                                            <label class = 'likeBtnLabel'>LIKE:${data[0].Like}</label>
                                 `:nothing}
                             </div>
                             <div class="book-description">
@@ -121,12 +121,20 @@ export async function detailsPage(ctx){
 
         if(isLike.length>0||result.IsOwner){
             ctx.render(detailsTemplateSecond(result,onDelete,user));
+            let getElements = document.getElementsByClassName('likeBtnLabel')[0];
+                
+                getElements.className = 'labelLike'
+                console.log(getElements);
         }else{
             ctx.render(detailsTemplate(result,onDelete,user));
 
             document.getElementById('likeBtn').addEventListener('click', function(e){
                 const element = e.target;
 
+                let getElements = document.getElementsByClassName('likeBtnLabel')[0];
+                
+                getElements.className = 'labelLike'
+                
                 createLike(bookId,userId[0].Id);
 
                 element.style.visibility = 'hidden';
