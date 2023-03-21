@@ -9,7 +9,9 @@ const endpoints = {
     editBook:'/data/edit/',
     createLike:'/data/book/like/',
     searchBook:'/data/books/find/',
-    isLiked:'/data/book/like'
+    isLiked:'/data/book/like',
+    favoriteBooks:'/data/books/favorite/',
+    removeFavoriteBook:'/data/book/remove/favorite/'
 }
 
 export async function getAllBookReviews(){
@@ -46,4 +48,10 @@ export function searchBook(input){
 
 export function isLiked(bookId,userId){
     return api.post(endpoints.isLiked,{bookId,userId});
+}
+export async function getFavoriteBooks(userId){
+    return await api.get(endpoints.favoriteBooks+userId);
+}
+export async function deleteFavoriteBook(userId,bookId){
+    return await api.del(endpoints.removeFavoriteBook+bookId+'/'+userId);
 }

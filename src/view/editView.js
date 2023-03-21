@@ -1,4 +1,4 @@
-import { html } from '../../node_modules/lit-html/lit-html.js'
+import { html } from '../../node_modules/lit-html/lit-html.js';
 import { CreateSubmitHandler } from '../api/util.js';
 import {  EditBook, getBookByBookId } from '../services/books.js';
 import { notify } from './../api/notify.js';

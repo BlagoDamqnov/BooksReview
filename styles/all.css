@@ -8,6 +8,7 @@ body {
     background-size: cover;
     font-family: SourceSans;
 }
+
 .basic {
     background: linear-gradient(rgba(250, 248, 248, 0.2), rgba(25, 167, 173, 0.2));
     background-size: cover;
@@ -15,6 +16,7 @@ body {
     position: relative;
     overflow: hidden;
 }
+
 #container {
     width: 100%;
     margin: 0 auto;
@@ -27,18 +29,23 @@ body {
 #site-content>section.basic {
     text-align: center;
 }
+
 .login form,
 .register form,
-.create form, .edit form {
+.create form,
+.edit form {
     margin: 5rem auto;
 }
-.updateProfile{
-    color:black
+
+.updateProfile {
+    color: black
 }
+
 .update {
-    margin-top:25px;
+    margin-top: 25px;
 }
-.userImage{
+
+.userImage {
     width: 50px;
     height: 50px;
     border-radius: 50%;
@@ -46,12 +53,13 @@ body {
     margin-bottom: 0 !important;
     padding-bottom: 0 !important;
 }
+
 .button {
     display: inline-block;
     padding: 0.3rem 1rem;
     text-decoration: none;
     font-weight: bold;
-    background:#4CAF50;
+    background: #4CAF50;
     color: white;
     border: none;
     font-size: 1rem;
@@ -60,26 +68,33 @@ body {
     margin-bottom: 10px;
     margin: 5px;
 }
+
 a {
     text-decoration: none;
     display: inline-block;
 }
-label{
-    margin:right 0px;
+
+label {
+    margin: right 0px;
 }
-.labelLike{
+
+.labelLike {
     margin: 0 auto;
     margin-left: -150px;
     margin-top: -30px;
     margin-right: -15px;
 }
+
 .fa-heart {
     color: red;
 }
-img{
-    width: 150px;
+
+img {
+    width: 140px;
     height: auto;
+    border-radius: 7px;
 }
+
 .detailsOtherBooks,
 .detailsMyBooks,
 .deleteBook,
@@ -89,6 +104,7 @@ img{
     flex-direction: column;
     align-items: center;
 }
+
 .detailsMyBooks>p:nth-child(2),
 .deleteBook>p:nth-child(2),
 .otherBooks>p:nth-child(2),
@@ -96,17 +112,21 @@ img{
     font-size: 1.2rem;
     font-weight: bold;
 }
+
 .dashboard>nav>ul {
     display: flex;
 
 }
+
 .dashboard>nav>ul li:not(:last-child) {
     padding-right: 1rem;
 
 }
+
 .dashboard .navbar {
     justify-content: center;
 }
+
 .basic h1,
 .my-books h1,
 .dashboard h1 {
@@ -114,45 +134,54 @@ img{
     margin: 0rem;
     padding: 2rem 0 1rem 0;
 }
+
 h3 {
     margin-bottom: 0;
     text-align: auto;
 }
+
 img.hearts {
     width: 32px;
     height: 30px;
     position: relative;
     display: inline-block;
 }
+
 div.actions {
     display: flex;
     justify-content: center;
 }
+
 div.actions a {
     margin-right: 10px;
     height: 25px;
 }
+
 .deleteBook>form,
 .detailsMyBooks>form {
     display: flex;
     flex-direction: column;
     padding-bottom: 1rem;
 }
+
 .my-books .my-books-list,
 .dashboard .other-books-list {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
 }
+
 .detailsMyBooks textarea,
 .my-books textarea {
     margin-bottom: 2rem;
 }
+
 footer {
     margin-top: auto;
     text-align: center;
     background: rgb(82, 122, 230);
 }
+
 footer p {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     padding: 1rem 0;
@@ -161,100 +190,151 @@ footer p {
     color: black;
     background-color: white;
 }
+
 .no-books {
     font-weight: bold;
     font-size: large;
     text-align: center;
-    color:black
+    color: black
 }
-.search{
-    color:black;
+
+.search {
+    color: black;
     font-family: arial;
     font-size: 24px;
     display: flex;
     justify-content: center;
 }
+
 textarea#description {
     height: 100px;
     resize: none;
 }
+
 .otherBooks {
     background-color: rgb(245, 245, 245);
-    border-radius: 4px;
+    border-radius: 6px;
     text-align: center;
     margin: 2rem;
     position: relative;
-    width: 200px;
+    width: 15em;
     height: auto;
     transition: all 0.3s cubic-bezier(.50, .80, .25, 1);
     box-shadow: -8px -2px 28px -8px #000000;
     align-items: center;
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+
 .otherBooks:hover {
     box-shadow: 10px 10px 50px 5px #2e2e2e;
 }
-.details > .book-information > .img {
+
+.details>.book-information>.img {
     width: 60%;
     align-items: center;
 }
-.details > .book-information > .button {
+
+.details>.book-information>.button {
     width: 30%;
     text-align: center;
 }
+
 .details {
-    margin:  30px;
-    color:black
+    margin: 30px;
+    color: black
 }
-#welcome{
-    color:black
+
+#welcome {
+    color: black
 }
+
 .row {
     text-align: center;
- }
+}
+
 .column {
     display: flex;
     margin: 10px;
     padding: 10px;
 }
-/* #creatorName{
-    display: none;
-} */
-#noActiveBtn{
- background-color: red;
+#noActiveBtn {
+    background-color: red;
 }
+
 .pagination {
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-  
-  .pagination a {
+}
+
+.pagination a {
     display: inline-block;
     padding: 8px 16px;
     text-decoration: none;
     color: #333;
     border: 1px solid #ccc;
-  }
-  
-  .pagination .active {
+}
+
+.pagination .active {
     background-color: #333;
     color: #fff;
-  }
-  
-  .pagination a:hover:not(.active) {
+}
+
+.pagination a:hover:not(.active) {
     background-color: #f1f1f1;
-  }
-  
-  .pagination .prev,
-  .pagination .next {
+}
+
+.pagination .prev,
+.pagination .next {
     border-radius: 2px;
-  }
-  
-  .pagination .prev {
+}
+
+.pagination .prev {
     margin-right: 10px;
-  }
-  
-  .pagination .next {
+}
+
+.pagination .next {
     margin-left: 10px;
-  }
+}
+
+#userBooksName {
+    font-size: 2em;
+    font-weight: bold;
+    text-align: center;
+    color: #000000;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2),
+        0 0 0 5px rgba(255, 255, 255, 0.3),
+        0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, auto);
+    grid-gap: 20px;
+}
+
+.update {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.updateProfile {
+    margin-bottom: 10px;
+}
+
+.input {
+    margin-bottom: 10px;
+}
+
+.button {
+    margin-top: 10px;
+}
+
+/*
+  Паролата трябва да съдържа малка буква, голяма буква, число и специален символ (например # @ & % *).
+  */

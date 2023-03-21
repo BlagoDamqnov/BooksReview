@@ -20,7 +20,7 @@ export const previewTemplate = (data) => html`
                <li class="otherBooks">
                    <h3>${data.Title}</h3>
                    <p>Type: ${data.Kind}</p>
-                   <img src="${data.Image}"></p>
+                     <img class="img" src="${data.Image}">
                    <a class="button" href="/details/${data.Id}">Details</a>
                </li>
 `

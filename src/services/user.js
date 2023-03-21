@@ -9,7 +9,8 @@ const endpoints = {
     updateUsername:'/data/update/username/',
     deleteProfile:'/data/users/delete/',
     updateEmail:'/data/update/email/',
-    getUserId:'/data/books/user/'
+    getUserId:'/data/books/user/',
+    updateImage:'/data/update/image/'
 }
 
 export async function getUserByUsername(username){
@@ -36,7 +37,7 @@ export async function userInfo(id){
 }
 
 export async function updateUsername(id,username){
-    return await api.put(endpoints.updateUsername+id,{username});
+    await api.put(endpoints.updateUsername+id,{username});
 }
 
 export async function deleteProfile(id){
@@ -44,5 +45,9 @@ export async function deleteProfile(id){
 }
 
 export async function updateEmail(id,email){
-    return await api.put(endpoints.updateEmail+id,{email});
+    await api.put(endpoints.updateEmail+id,{email});
 }
+export async function updateImage(image,id){
+    await api.post(endpoints.updateImage+id,{image});
+}
+

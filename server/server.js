@@ -3,7 +3,7 @@ const cors = require('cors');
 const jwt = require("jsonwebtoken");
 const bcrypt = require('bcrypt');
 const {  isLiked,likeBook,deleteBookById,getBookByUserId,editBookById,getBookByBookId,createReview,getUserByEmail
-        ,searchBook,getBook,UserExist,registerUser, getUserById, updateUsername, deleteProfile,updateEmail,getUserByUsername} = require('./Queries.js');
+        ,searchBook,getBook,UserExist,registerUser, getUserById, updateUsername, deleteProfile,updateEmail,getUserByUsername, updateImage, getFavoriteBooks, removeFavoriteBooks} = require('./Queries.js');
         
 let mssql_configuration = require('../server/SQL/config.js');
 const {emailRegex,passwordRegex} = require('./Validations');
@@ -60,36 +60,46 @@ app.post('/users/register',async (req,res)=>{
     const isValidPassword = passwordRegex.test(password);
     const isValidEmail = emailRegex.test(email);
 
-    if(isValidPassword){
-        if(!isValidEmail){
-            res.status(409).json({
-                message:'Email is not valid'
-            })
-        }else{
-            let user = (await UserExist(email)).recordset;
-
-            const data = {email:email,password:password};
-            
-            if(user.length !== 0)
-            {
+    let isExist = (await getUserByUsername(username)).recordset;
+  
+    if(isExist.length==1){
+        res.status(409).json({
+            message:'Username is taken'
+        })
+    }else{
+        if(isValidPassword){
+            if(!isValidEmail){
                 res.status(409).json({
-                    message:'This User is already exist'
+                    message:'You have entered an invalid username or password'
                 })
             }else{
-                const token = jwt.sign(data,'eds5f4sd5f4sdfsd4f45sd54fds4f54sd45');
-        
-                await registerUser(token,email, password,username,img);
-        
-                const id = await getUserByEmail(email);
-                res.send({email,token,id,username,img});
-                }
+                let user = (await UserExist(email)).recordset;
+    
+                const data = {email:email,password:password};
+                
+                if(user.length !== 0)
+                {
+                    res.status(409).json({
+                        message:'This User is already exist'
+                    })
+                }else{
+                    const token = jwt.sign(data,'eds5f4sd5f4sdfsd4f45sd54fds4f54sd45');
+            
+                    await registerUser(token,email, password,username,img);
+            
+                    const id = await getUserByEmail(email);
+                    res.send({email,token,id,username,img});
+                    }
+            }
+        }else{
+            res.status(409).json({
+                message:'Паролата трябва да съдържа малка буква, голяма буква, число и специален символ (например # @ & % *).'
+            })
         }
-    }else{
-        res.status(409).json({
-            message:'Password must contain at least 8 characters and a-z A-Z and special character'
-        })
+      
     }
-  
+
+    
 })
 
 app.get('/users/logout',(req,res)=>{
@@ -110,7 +120,18 @@ app.get(`/data/books/find/:title`,async(req,res) =>{
     let result = await searchBook(req.params.title);
     res.status(200).send(result);
 })
-
+app.post(`/data/update/image/:id`,async(req,res) =>{
+    let image = await req.body.image;
+    console.log(image);
+    await updateImage(image,req.params.id);
+    res.status(204);
+})
+app.get('/data/books/favorite/:id',async(req,res) =>{
+    const userId = await req.params.id;
+    let books = await getFavoriteBooks(userId);
+    console.log(books);
+    res.status(200).send(books);
+})
 app.post('/data/create',async(req,res)=>{
     const title = await req.body.title;
     const author = await req.body.author;
@@ -144,6 +165,13 @@ app.put('/data/edit/:id',async(req,res)=>{
     res.status(204).send(books);
 })
 
+app.delete('/data/book/remove/favorite/:bookId/:userId',async(req,res)=>{
+    const userId = req.params.userId;
+    const bookId = req.params.bookId;
+
+    await removeFavoriteBooks(userId, bookId);
+})
+
 app.get('/data/details/:id',async (req, res)=>{
     let books = await getBookByBookId(req.params.id);
     res.status(200).send(books);
@@ -167,11 +195,23 @@ app.get('/data/users/:id',async (req, res)=>{
 })
 
 app.put('/data/update/username/:id',async (req, res)=>{
-    const userId = await req.params.id;
-    const username = await req.body.username;
+    const userId =  req.params.id;
+    const username =  req.body.username;
 
-    await updateUsername(userId,username);
-    res.status(200);
+    const isExist = await getUserByUsername(username);
+    const lengthOfResult = isExist.recordset;
+    
+    console.log(lengthOfResult.length);
+    if(lengthOfResult.length == 1){
+        res.status(409).json({
+            message:'User already exists'
+        })
+    }else{
+        await updateUsername(userId,username);
+        res.status(204).json({
+            message:'Success updated!'
+        })
+    }
 })
 
 app.put('/data/update/email/:id',async (req, res)=>{
@@ -187,7 +227,9 @@ app.put('/data/update/email/:id',async (req, res)=>{
         })
     }else{
         await updateEmail(userId,email);
-        res.status(204);
+        res.status(204).json({
+            message:'Successfully updated email!'
+        });
     }
 });
 

@@ -65,6 +65,20 @@ async function updateUsername(userId,username){
 async function updateEmail(userId,email){
     await sql.query`UPDATE dbo.Users SET Email = ${email} WHERE Id=${userId}`
 }
+async function updateImage(image,userId){
+    await sql.query`UPDATE dbo.Users SET [Image] = ${image} WHERE Id = ${userId} `;
+}
+async function getFavoriteBooks(userId){
+    let books = await sql.query`SELECT * FROM Books b
+    JOIN Likes l ON b.Id = l.BookId
+    WHERE l.UserId = ${userId}`;
+
+    return books.recordset;
+}
+async function removeFavoriteBooks(userId,bookId){
+    await sql.query`DELETE FROM Likes WHERE BookId = ${bookId} AND UserId = ${userId}
+                    UPDATE Books SET [Like] -=1 WHERE Id = ${bookId}`;
+}
 async function deleteProfile(userId){
     await sql.query`
     BEGIN TRANSACTION
@@ -100,4 +114,7 @@ module.exports = {
     ,deleteProfile
     ,updateEmail
     ,getUserByUsername
+    ,updateImage
+    ,getFavoriteBooks
+    ,removeFavoriteBooks
 }

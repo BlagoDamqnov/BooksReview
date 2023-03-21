@@ -20,15 +20,15 @@ const detailsTemplate = (data,onDelete,user) => html`
                                 <div class="actions">
                                     <a class="button" href="/edit/${data[0].Id}">Edit</a>
                                     <a class="button" href="javascript:void(0)" @click =${onDelete}>Delete</a>
-                                    <label class = 'likeBtnLabel'>LIKE:${data[0].Like}</label>
+                                    <label class = 'likeBtnLabel'>Stars:${data[0].Like}</label>
                                 </div>
                                 `:
                                 localStorage.length>0
                                 ?html`
                                     <div id ="btnWrapper">
-                                    <button class="button" id = "likeBtn">Like</button>
+                                    <button class="button" id = "likeBtn">Favorite</button>
                                     </div>
-                                        <label class = 'likeBtnLabel'>LIKE:${data[0].Like}</label>
+                                        <label class = 'likeBtnLabel'>Favorite:${data[0].Like}</label>
                                         `
                                     :nothing}
                         </div>
@@ -52,15 +52,15 @@ const detailsTemplateSecond = (data,onDelete,user) => html`
                                     <a class="creatorImg"><img class = "userImage" src="${user[0].Image}"><img/></a>
                                     ${data.IsOwner?
                                     html`
+                                    <label class = 'likeBtnLabel'>Stars:${data[0].Like}</label>
                                     <div class="actions">
                                         <a class="button" href="/edit/${data[0].Id}">Edit</a>
                                         <a class="button" href="javascript:void(0)" @click =${onDelete}>Delete</a>
-                                        <label class = 'likeBtnLabel'>LIKE:${data[0].Like}</label>
                                     </div>
                                     `:
                                     localStorage.length>0
                                     ?html`
-                                            <label class = 'likeBtnLabel'>LIKE:${data[0].Like}</label>
+                                            <label class = 'likeBtnLabel'>Stars:${data[0].Like}</label>
                                 `:nothing}
                             </div>
                             <div class="book-description">
@@ -72,7 +72,7 @@ const detailsTemplateSecond = (data,onDelete,user) => html`
 
 `
 const userBooks = (data,name) => html`
-    <h1>${name}'s books</h1>
+    <h1 id="userBooksName">The books are: ${name}</h1>
         <section id="dashboard-page" class="dashboard">
             ${data.length>0
             ?html`

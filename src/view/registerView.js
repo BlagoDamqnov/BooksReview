@@ -41,7 +41,7 @@ async function onSubmit(ctx,data,event){
     const token = getAccessToken();
 
     if(data.img == ''){
-      await register(token,data.email,data.password,data.username,'../../images/defaultUser');
+      await register(token,data.email,data.password,data.username,'../../images/user.png');
     }else{
       await register(token,data.email,data.password,data.username,data.img);
     }
