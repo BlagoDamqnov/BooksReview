@@ -26,7 +26,7 @@ const detailsTemplate = (data,onDelete,user) => html`
                                 localStorage.length>0
                                 ?html`
                                     <div id ="btnWrapper">
-                                    <button class="button" id = "likeBtn">Favorite</button>
+                                    <button class="button" id = "likeBtn">Add to Favorite</button>
                                     </div>
                                         <label class = 'likeBtnLabel'>Favorite:${data[0].Like}</label>
                                         `
@@ -72,7 +72,7 @@ const detailsTemplateSecond = (data,onDelete,user) => html`
 
 `
 const userBooks = (data,name) => html`
-    <h1 id="userBooksName">The books are: ${name}</h1>
+    <h1 id="userBooksName">The ${name}'s books</h1>
         <section id="dashboard-page" class="dashboard">
             ${data.length>0
             ?html`

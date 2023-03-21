@@ -12,7 +12,7 @@ const myBook = (data) => html`
               </ul>
             `
             :html`
-            <p class="no-books">No available my books review!</p>
+            <p class="no-books">No available favorite books!</p>
             `
               }
         </section>
@@ -29,6 +29,6 @@ const previewTemplate = (data) => html`
 export async function favoritePage(ctx){
     const id = await getUserId();
     let result = await getFavoriteBooks(id[0].Id);
-    console.log(result);
+
     ctx.render(myBook(result));
 }
