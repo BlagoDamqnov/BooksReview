@@ -1,5 +1,6 @@
 let sql = require('mssql')
 const bcrypt = require('bcrypt');
+const { inputValidate } = require('./Validations');
 
 async function isLiked(bookId,userId){
     let result =await sql.query(`SELECT * FROM Likes Where BookId = ${bookId} AND UserId = ${userId}`)
@@ -41,11 +42,17 @@ async function getUserByEmail(email){
     return result.recordset;
 }
 async function searchBook(input){
-    let result = await sql.query(`SELECT * FROM dbo.Books WHERE Title = N'${input}' OR Kind = N'${input}' OR Author = N'${input}' OR Title LIKE N'%${input}%' OR Kind LIKE N'%${input}%' OR Author LIKE N'%${input}%' `,{
-            input: sql.NVarChar,
-            value: input
-    });
-    return result.recordset;
+    let regex = new RegExp(inputValidate);
+    const isValid = regex.test(input);
+    if(!isValid){
+        let result = await sql.query(`SELECT * FROM dbo.Books WHERE Title = N'${input}' OR Kind = N'${input}' OR Author = N'${input}' OR Title LIKE N'%${input}%' OR Kind LIKE N'%${input}%' OR Author LIKE N'%${input}%' `,{
+                input: sql.NVarChar,
+                value: input
+        });
+        return result.recordset;
+    }else{
+        return [];
+    }
 }
 async function getBook(){
     let result = await sql.query `SELECT TOP(10) * FROM Books ORDER BY [Like] DESC`

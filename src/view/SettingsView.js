@@ -5,7 +5,7 @@ import { deleteProfile, updateEmail, updateImage, updateUsername } from '../serv
 import { successfullyAlert } from './../api/alert.js';
 
 
-const settingsTemplate = (user,onUpdate,onUpdateEmail,onUpdateImage) =>html`
+const settingsTemplate = (user,onDelete,onUpdate,onUpdateEmail,onUpdateImage) =>html`
 <div class="grid-container">
   <form class="update" @submit=${onUpdate}>
     <label class="updateProfile">Update Username</label>
@@ -31,7 +31,7 @@ const settingsTemplate = (user,onUpdate,onUpdateEmail,onUpdateImage) =>html`
     <button class="button">Update</button>
   </form>
 
-  <form class="update">
+  <form class="update" @submit = ${onDelete}>
     <button class="button" id="del">Delete Profile</button>
   </form>
 
@@ -94,9 +94,13 @@ async function onDeleteProfile(ctx){
     const choice = confirm('Are you sure want to delete account?');
     if(choice){
         let user = getUserData();
-        clearUserData();
-
+        console.log(user);
+        
         await deleteProfile(user.id[0].Id);
+        clearUserData();
+        setTimeout(()=>{
+            ctx.page.redirect('/login');
+        },1000);
         successfullyAlert('Profile deleted successfully');
     }
 }
@@ -124,8 +128,6 @@ async function onUpdateImage(ctx,data){
 export async function settingsPage(ctx){
     let user = getUserData();
 
-     ctx.render(settingsTemplate(user,CreateSubmitHandler(ctx,onUpdateProfile),CreateSubmitHandler(ctx,onUpdateEmail),CreateSubmitHandler(ctx,onUpdateImage)));
-
-    document.getElementById('del').addEventListener('click',onDeleteProfile);
+     ctx.render(settingsTemplate(user,CreateSubmitHandler(ctx,onDeleteProfile),CreateSubmitHandler(ctx,onUpdateProfile),CreateSubmitHandler(ctx,onUpdateEmail),CreateSubmitHandler(ctx,onUpdateImage)));
 }
 
