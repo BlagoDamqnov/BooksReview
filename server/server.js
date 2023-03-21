@@ -122,14 +122,14 @@ app.get(`/data/books/find/:title`,async(req,res) =>{
 })
 app.post(`/data/update/image/:id`,async(req,res) =>{
     let image = await req.body.image;
-    console.log(image);
+
     await updateImage(image,req.params.id);
     res.status(204);
 })
 app.get('/data/books/favorite/:id',async(req,res) =>{
     const userId = await req.params.id;
     let books = await getFavoriteBooks(userId);
-    console.log(books);
+
     res.status(200).send(books);
 })
 app.post('/data/create',async(req,res)=>{
@@ -200,8 +200,7 @@ app.put('/data/update/username/:id',async (req, res)=>{
 
     const isExist = await getUserByUsername(username);
     const lengthOfResult = isExist.recordset;
-    
-    console.log(lengthOfResult.length);
+   
     if(lengthOfResult.length == 1){
         res.status(409).json({
             message:'User already exists'

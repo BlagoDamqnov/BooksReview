@@ -1,5 +1,6 @@
 let sql = require('mssql')
 const bcrypt = require('bcrypt');
+
 async function isLiked(bookId,userId){
     let result =await sql.query(`SELECT * FROM Likes Where BookId = ${bookId} AND UserId = ${userId}`)
     return result.recordset;
