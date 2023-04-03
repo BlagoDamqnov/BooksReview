@@ -27,7 +27,7 @@ html {
 	}
   }
   /* Responsive styles */
-  @media (max-width: 600px) {
+  /* @media (max-width: 600px) {
     nav {
       flex-wrap: wrap;
       align-items: flex-start;
@@ -40,7 +40,7 @@ html {
       text-align: center;
       margin: 10px 0;
     }
-  }
+  } */
   @media screen and (max-width: 1000px) {
     .grid-container {
       display: grid;
@@ -49,3 +49,33 @@ html {
       grid-gap: 20px;
     }
   }
+
+  @media screen and (max-width:600px){
+    #welcome{
+      display: none;
+    }
+  }
+  @media (max-width: 767px) {
+    .navbar-toggler {
+      margin-right: 0.5rem !important;
+    }
+    
+    .navbar-nav {
+      flex-direction: column !important;
+    }
+    
+    .dropdown-menu {
+      position: static !important;
+      display: none !important;
+      width: 100% !important;
+    }
+    
+    .dropdown-menu.show {
+      display: block !important;
+    }
+    
+    .dropdown-toggle::after {
+      display: none !important;
+    }
+  }
+  

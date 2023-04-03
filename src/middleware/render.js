@@ -13,7 +13,7 @@ const navigationTemplate = (user) =>html`
                      <div id="user">
                         <nav>
                         <a href="/settings"><img class= "userImage" src="${user.img}"></a>
-                        <!-- <span id="welcome">${user.username}</span> -->
+                        <span id="welcome">${user.username}</span>
                         <ul>
                             <li><a href="/myBook">MyBooks</a></li>
                             <li><a href="/search">Search</a></li>

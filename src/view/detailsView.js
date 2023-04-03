@@ -72,7 +72,7 @@ const detailsTemplateSecond = (data,onDelete,user) => html`
 
 `
 const userBooks = (data,name) => html`
-    <h1 id="userBooksName">The ${name}'s books</h1>
+    <h1 id="userBooksName">${name}'s books</h1>
         <section id="dashboard-page" class="dashboard">
             ${data.length>0
             ?html`
