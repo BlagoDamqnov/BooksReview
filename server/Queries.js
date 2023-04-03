@@ -104,6 +104,35 @@ async function deleteProfile(userId){
     COMMIT;
     `
 }
+
+ var obj = {
+    users: `CREATE TABLE BooksReview.dbo.Users (
+    Id int IDENTITY(1,1) NOT NULL,
+    Email varchar(150) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+    Username nvarchar(150) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+    Password varchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+    Image nvarchar(MAX) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+    CONSTRAINT PK__Users__3214EC07E2A37D06 PRIMARY KEY (Id),
+    CONSTRAINT UQ__Users__536C85E4EB76C4CD UNIQUE (Username),
+    CONSTRAINT UQ__Users__A9D105343234C0D3 UNIQUE (Email)
+);`  ,
+    books:`CREATE TABLE BooksReview.dbo.Books (
+    Id int IDENTITY(1,1) NOT NULL,
+    Title nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+    Kind nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+    Author nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+    Review nvarchar(MAX) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+    [Image] nvarchar(MAX) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+    UserId int NOT NULL,
+    [Like] int DEFAULT 0 NULL,
+    DataCreated datetime NULL,
+    CONSTRAINT PK__Books__3214EC07A157F92A PRIMARY KEY (Id)
+);`,
+    likes:`CREATE TABLE BooksReview.dbo.Likes (
+    BookId int NULL,
+    UserId int NULL
+);
+`}
 module.exports = {
      isLiked
     ,likeBook
@@ -125,4 +154,6 @@ module.exports = {
     ,updateImage
     ,getFavoriteBooks
     ,removeFavoriteBooks
+    ,obj
 }
+
