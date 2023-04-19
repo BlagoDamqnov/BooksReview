@@ -31,7 +31,7 @@ const settingsTemplate = (user,onDelete,onUpdate,onUpdateEmail,onUpdateImage) =>
     <button class="button">Update</button>
   </form>
 
-  <form class="update" @submit = ${onDelete}>
+  <form class = "updateDel" @submit = ${onDelete}>
     <button class="button" id="del">Delete Profile</button>
   </form>
 

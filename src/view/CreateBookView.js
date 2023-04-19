@@ -8,7 +8,7 @@ import { successfullyAlert } from './../api/alert.js';
 const CreateTemple = (onSubmit) =>html`
               <form  @submit=${onSubmit} class="register-form">
               <h3>Create Review</h3>
-                <div class="form-group">
+              <div class="form-group">
                   <input type="text" class="form-control" id="title" name="title" placeholder="Enter Title">
                 </div>
                 <div class="form-group">
